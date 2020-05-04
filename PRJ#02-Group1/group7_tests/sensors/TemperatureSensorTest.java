@@ -2,6 +2,9 @@ package sensors;
 
 import org.junit.jupiter.api.Test;
 
+import sensors7.Sensor;
+import sensors7.TemperatureSensor;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

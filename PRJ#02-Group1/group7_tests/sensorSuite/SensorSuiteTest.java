@@ -3,9 +3,11 @@ package sensorSuite;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import views.ConsoleReceiver;
-import views.Observer;
-import views.WeatherEnvoy;
+
+import sensorSuite7.SensorSuite;
+import views7.ConsoleReceiver;
+import views7.Observer;
+import views7.WeatherEnvoy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

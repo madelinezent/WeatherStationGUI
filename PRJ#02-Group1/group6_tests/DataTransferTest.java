@@ -9,6 +9,8 @@ import WeatherData.SoilMoisture;
 import org.junit.Assert;
 import org.junit.Test;
 
+import Controller.DataRelay;
+
 import java.io.*;
 import java.util.*;
 

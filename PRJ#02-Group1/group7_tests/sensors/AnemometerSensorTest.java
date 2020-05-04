@@ -5,6 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+import sensors7.AnemometerSensor;
+import sensors7.Sensor;
+
 
 class AnemometerSensorTest {
     /**

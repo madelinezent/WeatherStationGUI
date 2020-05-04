@@ -1,7 +1,9 @@
 package views;
 
 import org.junit.jupiter.api.Test;
-import sensorSuite.SensorSuite;
+
+import sensorSuite7.SensorSuite;
+import views7.ConsoleReceiver;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

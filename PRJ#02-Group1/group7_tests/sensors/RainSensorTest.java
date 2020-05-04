@@ -2,6 +2,9 @@ package sensors;
 
 import org.junit.jupiter.api.Test;
 
+import sensors7.RainSensor;
+import sensors7.Sensor;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**

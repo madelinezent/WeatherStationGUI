@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import sensors.HumiditySensor;
-import sensors.RainSensor;
-import sensors.SensorInterface;
-import sensors.TemperatureSensor;
-import sensors.WindSensor;
+import sensors2.HumiditySensor;
+import sensors2.RainSensor;
+import sensors2.SensorInterface;
+import sensors2.TemperatureSensor;
+import sensors2.WindSensor;
 
 /**
  * This is the ISS application, which will capture
