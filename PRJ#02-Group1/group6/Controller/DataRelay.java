@@ -105,10 +105,10 @@ public class DataRelay implements Serializable {
         for (HistoricalDataPoint p : aggregators) {
             if (p.getType() == type) p.addDataPoint(point);
         }
-        if (++processed > IO_RATE) {
-            processed = 0;
-            writeData();
-        }
+//        if (++processed > IO_RATE) {
+//            processed = 0;
+//            writeData();
+//        }
     }
 
     /**
