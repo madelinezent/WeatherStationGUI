@@ -1,5 +1,7 @@
 package sensorData;
 
+//Hello
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Calendar;
@@ -66,23 +68,6 @@ public class Sensors6 implements ConsoleSensor {
 	@Override
 	public double windchill() {
 		return -1;
-	}
-
-	/**
-	 * Debug main used to test functionality TODO: REMOVE
-	 */
-	public static void main(String[] args) {
-
-		Sensors6 testSensor = new Sensors6();
-
-		testSensor.Initialize();
-
-		System.out.println("Rain:\tRate:\tHum:\tTemp:\tWndDir:\tWindSp:");
-		for (int i = 0; i < 20; i++) {
-			System.out.println(testSensor.rainFall() + "\t" + testSensor.rainRate() + "\t" + testSensor.humOut() + "\t" + testSensor.tempOut() + "\t" + testSensor.windDirection() + "\t" + testSensor.windSpeed());
-		}
-
-
 	}
 
 	/**
