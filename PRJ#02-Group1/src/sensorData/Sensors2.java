@@ -35,7 +35,7 @@ public class Sensors2 {
     }
 
     public void Initialize() {
-        //Nothing to initialize for now
+        //TODO Add additional initializations 
     }
     
     //Sensor fields to be displayed by the console
@@ -53,7 +53,6 @@ public class Sensors2 {
 
     public double humIn() {
         return humid.getInData();
-       
     }
 
     public double tempOut() {
