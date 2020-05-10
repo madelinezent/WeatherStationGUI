@@ -1,8 +1,8 @@
 package sensors2;
 
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 
 /**
  * This class is simulating a very basic simulation of temperature and displays its data
@@ -19,7 +19,6 @@ public class TemperatureSensorAlternative implements SensorInterface {
 	 * Keeps track of every time the thread runs and every 20 seconds counter increments.
 	 */
 	private int secondsCounter;
-	
 	
 	/**
 	 * Keeps track of the temperature inside the house.
@@ -55,7 +54,7 @@ public class TemperatureSensorAlternative implements SensorInterface {
 	 * This method must be implemented. This method will be the one the main class uses
 	 * to get an updated value. Data is updated every 20 seconds.
 	 */
-	public String getData() {
+	public double getData() {
 		// 12-3pm
 		if (secondsCounter <= 540) {
 			temperatureOut += Math.random() - Math.random();
@@ -340,20 +339,26 @@ public class TemperatureSensorAlternative implements SensorInterface {
 		else if (secondsCounter == 4320) {
 			secondsCounter = 0;
 		}
-		temperatureIn = temperatureIn + Math.random() - Math.random();
-		while (temperatureIn > 85) {
-			temperatureIn -= .95;
-		}
-		while (temperatureIn < 55) {
-			temperatureIn += .95;
-		}
-		temperatureInArchieve.add(temperatureIn);
+		
+		
         temperatureOutArchieve.add(temperatureOut);
         secondsCounter++;
 		//Giving structure and keeping answer to 2 decimal places.
-		return new DecimalFormat("##.##").format(temperatureOut) + "\n" +  
-				new DecimalFormat("##.##").format(temperatureIn);
+		return temperatureOut;
 	}
+	
+	public double getInData() {
+	    temperatureIn = temperatureIn + Math.random() - Math.random();
+        while (temperatureIn > 85) {
+            temperatureIn -= .95;
+        }
+        while (temperatureIn < 55) {
+            temperatureIn += .95;
+        }
+        temperatureInArchieve.add(temperatureIn);
+        return temperatureIn;
+	}
+	
 	
 	/**
      * This returns all the temperatureIn values stored from 12pm of day 0.
