@@ -1,6 +1,6 @@
-package sensors;
+package sensors2;
 
-//import java.text.DecimalFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -17,7 +17,7 @@ public class RainSensor implements SensorInterface {
     /**
      * The rainfall amount format
      */
-    //private static final DecimalFormat RAINFALL_FORMAT = new DecimalFormat("###.##\"");
+    private static final DecimalFormat RAINFALL_FORMAT = new DecimalFormat("###.##\"");
     
     /**
      * The amount of rainfall in inches
@@ -57,14 +57,14 @@ public class RainSensor implements SensorInterface {
     /**
      * Returns the amount of rainfall as a string
      */
-    public double getData() {
+    public String getData() {
         if (Math.random() > 0.9) {
             currentRainfall = Math.random() * 0.04;
         } else {
             currentRainfall = 0;
         }
         currentRainfallArchieve.add(currentRainfall);
-        return currentRainfall;
+        return "{rainfall: " + RAINFALL_FORMAT.format(currentRainfall) + "}";
     }
     
     /**

@@ -1,6 +1,6 @@
-package sensors;
+package sensors2;
 
-//import java.text.DecimalFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class HumiditySensor implements SensorInterface {
     
-    //private static final DecimalFormat HUM_FORMAT = new DecimalFormat("###");
+    private static final DecimalFormat HUM_FORMAT = new DecimalFormat("###");
     
     /**
      * The humidity inside the house
@@ -73,10 +73,14 @@ public class HumiditySensor implements SensorInterface {
         outerHumArchieve = new ArrayList<>();
     }
     
-    /**
-     * Returns outside data.
-     */
-    public double getData() {
+    public String getData() {
+        innerHum += (Math.random() * 2) - 1;
+        if (innerHum < 1) {
+            innerHum = 1;
+        } else if (innerHum > 100) {
+            innerHum = 100;
+        }
+        innerHumArchieve.add(innerHum);
         
         outerHum += (Math.random() * 2) - 1;
         if (outerHum < 1) {
@@ -86,25 +90,10 @@ public class HumiditySensor implements SensorInterface {
         }
         outerHumArchieve.add(outerHum);
         
-//        String inString = HUM_FORMAT.format(innerHum);
-//        String outString = HUM_FORMAT.format(outerHum);
+        String inString = HUM_FORMAT.format(innerHum);
+        String outString = HUM_FORMAT.format(outerHum);
         
-        return outerHum;
-    }
-    
-    /**
-     * Returns inside data.
-     */
-    public double getInData() {
-        innerHum += (Math.random() * 2) - 1;
-        if (innerHum < 1) {
-            innerHum = 1;
-        } else if (innerHum > 100) {
-            innerHum = 100;
-        }
-        innerHumArchieve.add(innerHum);
-        
-        return innerHum;
+        return "{innerHumidty: " + inString + "%, outerHumidity: " + outString + "%}";
     }
     
     /**

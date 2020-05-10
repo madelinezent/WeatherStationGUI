@@ -1,6 +1,6 @@
-package sensors;
+package sensors2;
 
-//import java.text.DecimalFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,15 +20,15 @@ public class WindSensor implements SensorInterface {
     /**
      * The format of the wind direction
      */
-    //private static final DecimalFormat WIND_DIR_FORMAT = new DecimalFormat("###ï¿½");
+    private static final DecimalFormat WIND_DIR_FORMAT = new DecimalFormat("###°");
     
     /**
      * The format of the wind speed
      */
-    //private static final DecimalFormat WIND_SPEED_FORMAT = new DecimalFormat("###mph");
+    private static final DecimalFormat WIND_SPEED_FORMAT = new DecimalFormat("###mph");
     
     /**
-     * The wind direction ï¿½, measured clockwise from the North direction
+     * The wind direction °, measured clockwise from the North direction
      */
     private double windDirection;
     
@@ -48,7 +48,7 @@ public class WindSensor implements SensorInterface {
     private ArrayList<Double> windSpeedArchieve;
     /**
      * The default constructor. It sets
-     * the wind speed and wind direction to 10mph and 0ï¿½, 
+     * the wind speed and wind direction to 10mph and 0°, 
      * respectively.
      */
     public WindSensor() {
@@ -83,24 +83,17 @@ public class WindSensor implements SensorInterface {
     }
     
     /**
-     * A double representing the wind direction.
+     * A string representing the measurements of this wind sensor.
      */
-    public double getData() {
+    public String getData() {
         windDirection += (Math.random() * 2) - 1;
-        windDirection %= 360; 
+        windDirection %= 360;
         if (windDirection < 0) {
             windDirection += 360;
         }
+        
         windDirectionArchieve.add(windDirection);
-//        String dirString = WIND_DIR_FORMAT.format(windDirection);
-//        String speedString = WIND_SPEED_FORMAT.format(windSpeed);
-        return windDirection;
-    }
-    
-    /**
-     * A double representing the wind speed.
-     */
-    public double getWindSpeedData() {
+        
         windSpeed += (Math.random() * 2) - 1;
         if (windSpeed < 0) {
             windSpeed = 0;
@@ -109,7 +102,11 @@ public class WindSensor implements SensorInterface {
         }
         
         windSpeedArchieve.add(windSpeed);
-        return windSpeed;
+        
+        String dirString = WIND_DIR_FORMAT.format(windDirection);
+        String speedString = WIND_SPEED_FORMAT.format(windSpeed);
+        
+        return "{windSpeed: " + speedString + ", windDirection: " + dirString + "}";
     }
     
     /**
