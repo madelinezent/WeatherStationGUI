@@ -6,7 +6,8 @@ import sensorData.ConsoleSensor;
 /**
  * Calls and stores data from selected console sensors and saves
  * historical data.
- *
+ * 
+ * @author Maxfield England
  * @author XiuXiang Wu
  * @author Deline Zent
  */
