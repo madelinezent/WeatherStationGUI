@@ -20,9 +20,9 @@ public class DataType {
 	/** List stores all the console sensors used to calculate averages. */
 	ArrayList<ConsoleSensor> mySensors;
 	/** Current weather values for each sensor. */
-	double currentWindDirection, currentWindSpeed, currentWindChill,
-			currentRainRate,currentRainFall, currentHumIn, currentHumOut,
-			currentTempIn, currentTempOut, currentPressure;
+	double currentWindDirection, currentWindSpeed, currentWindChill, 
+		currentRainRate, currentRainFall, currentHumIn, currentHumOut, 
+		currentTempIn, currentTempOut, currentPressure;
 
 	/**
 	 * Initializes every historical data type list and saves the
