@@ -1,7 +1,9 @@
 package sensorData;
 import sensorSuite7.SensorSuite;
 /**
- * Main program.
+ * Retrieves data from Group 7's implementation.
+ *
+ * @author Ali Iftakhar.
  */
 public class Sensors7 implements ConsoleSensor {
     private static SensorSuite sensorSuite;
