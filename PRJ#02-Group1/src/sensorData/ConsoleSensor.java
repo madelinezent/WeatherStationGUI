@@ -1,5 +1,16 @@
 package sensorData;
 
+/**
+ * The ConsoleSensor interface represents the common behaviors expected from the classes that translate
+ * code of each specific ISS implementation to retrieving their specific data values, as float-returning
+ * methods.
+ * 
+ * If the sensor suite does not include a particular value, it is to return the value -1; this is to ensure
+ * that when the values are averaged, it is easy to detect and discard values that do not exist.
+ * 
+ * @author Maxfield England
+ *
+ */
 public interface ConsoleSensor {
 
 	/**

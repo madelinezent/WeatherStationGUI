@@ -18,11 +18,13 @@ public class Sensors6 implements ConsoleSensor {
 	//Create counter variables for every value, such that we make sure we're reading from data synchronously (get next data 
 	private int rfCtr = 0, rrCtr = 0, hoCtr = 0, toCtr = 0, wdCtr = 0, wsCtr = 0;
 
+
+	
 	//Aggregators as represented in LinkedList:
 	//[Humidity, Temperature, SoilMoisture, RainFall, UV, SolarRad, WindDireciton, WindSpeed, RainRate]
 	//Hum 0, Temp 1, Soil 2, RainF3, X4, X5, WD6, WS7, RR8] -- corresponding indices
-
-
+	
+	
 	/**
 	 * Initializes sensor by creating a data relay object
 	 */
