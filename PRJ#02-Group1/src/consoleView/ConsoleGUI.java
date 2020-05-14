@@ -34,6 +34,8 @@ public class ConsoleGUI {
 						myTempIn, myHumidIn, myPressure, myWindSpeed;
 	/** Multi-line buttons.*/
 	private JButton temprature, humidity, windSpeed, rainRate, hilow, graphic,rainFall;
+	
+	private WindCompass myCompass;
 
 	
 	public ConsoleGUI(){
@@ -68,6 +70,9 @@ public class ConsoleGUI {
 	    myPressure = new JTextArea(50, 30);
 	    myWindSpeed = new JTextArea(50, 30);
 
+	    //Initialize compass.
+	    myCompass = new WindCompass();
+	    
 	    
 	    
 	    myFrame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -77,7 +82,8 @@ public class ConsoleGUI {
 	}
 	 private void setupGUI() {
 
-		 campass.add(new JLabel("campass"));	     
+		 campass.add(myCompass);
+		 myCompass.setVisible(true);
 	     graph.add(new JLabel ("graph"));
 	     
 	     left.setLayout(new GridLayout(2,1));
