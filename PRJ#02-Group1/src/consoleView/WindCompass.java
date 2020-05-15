@@ -1,11 +1,19 @@
 package consoleView;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.*;
 
+/**
+ * WindCompass: creates a component that can visually represent wind speed and direction.
+ * Wind speed and direction can be updated, such that the compass will match the provided
+ * angle with the closest displayable match (based on significant trigonometric angles)
+ * and display wind speed superimposed over the compass image.
+ * 
+ * @author Maxfield England
+ *
+ */
 public class WindCompass extends JLayeredPane {
 
 	/**
@@ -15,21 +23,66 @@ public class WindCompass extends JLayeredPane {
 	
 
 	/**
-	 * Compass background as an image icon; to import the the background found in the manual.
+	 * Compass background as an image icon; to import the background found in the manual.
 	 */
 	public final JLabel compassLabel;
 	
+	/**
+	 * Label for updating wind speed laid over the compass.
+	 */
+	public final JLabel speedLabel;
+	
 	
 	/**
-	 * TODO: Figure out what the hell I'm supposed to do with this. 
+	 * Constructs a Wind Compass of appropriate size, creating the components for the
+	 * background image and speed label, in a layered fashion.
 	 */
 	public WindCompass() {
 		super();
-		compassLabel = new JLabel();
-		ImageIcon compassBG = new ImageIcon("Console_Compass.png");
+
+		Dimension dim = new Dimension(400, 400);
+		this.setPreferredSize(dim);
+		this.setMinimumSize(dim);
 		
+		compassLabel = new JLabel();
+		
+		ImageIcon compassBG = new ImageIcon(WindCompass.class.getResource("/displayImgs/deg0.png"));
+		
+		speedLabel = new JLabel("0", SwingConstants.CENTER);
+		speedLabel.setFont(new Font("Courier New", Font.BOLD, 30));
+		
+		//determine speedLabel position
+		int speedX = this.getX() + 165;
+		int speedY = this.getY() + 195;
+		
+		speedLabel.setLocation(speedX, speedY);
+
 		compassLabel.setIcon(compassBG);
-		this.add(compassLabel, 1, 0);
+		
+		compassLabel.setBounds( 0, 0,compassBG.getIconWidth(), compassBG.getIconHeight() ); 
+		speedLabel.setBounds( speedX, speedY,  80, 80 );
+		
+		
+	    this.add(compassLabel, new Integer(1));  
+	    this.add(speedLabel, new Integer(2));  
+		
+		//this.add(compassLabel);
+		//compassLabel.add(speedLabel);
+	}
+	
+	/**
+	 * Receives update information: reflects the current angle and wind speed as sent to the GUI from DataType
+	 * 
+	 * @param windAngle The angle to graphically display (roughly)
+	 * @param windSpeed Magnitude of the force of the wind
+	 */
+	public void update(double windAngle, double windSpeed) {
+		updateDir(windAngle);
+		
+		//Console displays windspeed as an integer value; given a double, round to an integer for display
+		long displaySpeed = Math.round(windSpeed);
+		speedLabel.setText(Long.toString(displaySpeed));
+		
 	}
 	
 	/*
@@ -43,7 +96,8 @@ public class WindCompass extends JLayeredPane {
 		//Ensure we're working only with angles in range (0, 360).
 		windAngle = (windAngle % 360);
 		
-		int closestAngle = roundByDiscreteNum(windAngle, 15);
+		
+		int closestAngle = roundByDiscreteNum(windAngle, 15) % 360;
 		
 		//List of mod15 angles we don't have graphics for: test these angles to see if we need to round to the nearest 30 instead
 		int[] invalidAngles = {15, 75, 105, 165, 195, 255, 285, 345};
@@ -55,10 +109,12 @@ public class WindCompass extends JLayeredPane {
 		}
 		
 		//If we choose a bad multiple of 15, use the closest multiple of 30 instead.
-		if (isInvalid) closestAngle = roundByDiscreteNum(windAngle, 30);
+		if (isInvalid) closestAngle = roundByDiscreteNum(windAngle, 30) % 360;
+				
+		System.out.println("Choosing angle " + closestAngle);
 		
-		String degFileName = ("deg" + closestAngle + ".png");
-		compassLabel.setIcon(new ImageIcon(degFileName));
+		String degFileName = ("/displayImgs/deg" + closestAngle + ".png");
+		compassLabel.setIcon(new ImageIcon(WindCompass.class.getResource(degFileName)));
 		
 	}
 
@@ -88,21 +144,29 @@ public class WindCompass extends JLayeredPane {
 			closest = (int) (toRound - (toRound % roundingFactor));
 		}
 		return closest;
-	}
-		
-		
+	} 
 	
-		//Set pointer to coordinates (displayX, displayY) as offset from the center of the circle
-		//
-		
-		
-	
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		
-	}
+	//Test main TODO: delete
+//	public static void main(String[] args) throws InterruptedException {
+//		WindCompass w = new WindCompass();
+//		
+//		JFrame j = new JFrame("Test Window");
+//		j.setVisible(true);
+//		j.add(w);
+//		w.setVisible(true);
+//		j.pack();
+//		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		
+//		for (int i = 0; i < 30; i++) { 
+//			
+//			double testAngle = Math.random() * 360;
+//			double testSpeed = Math.random() * 120;
+//			w.update(testAngle, testSpeed);
+//			
+//			TimeUnit.SECONDS.sleep(1);
+//		}
+//		
+//	}
 	
 	
 }

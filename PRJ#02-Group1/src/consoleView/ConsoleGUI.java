@@ -27,7 +27,7 @@ public class ConsoleGUI {
 	private final JFrame myFrame;
 
 	 /**Containers to organize components.*/
-	private JPanel myDisplay, left, temp, graph, campass, buttons;
+	private JPanel myDisplay, left, temp, graph, compass, buttons;
 
 	/** Multi-line area that displays plain text.*/
 	private JTextArea myDate, myTime, myTemp, myRain, myHumid, 
@@ -46,7 +46,7 @@ public class ConsoleGUI {
 	    myDisplay = new JPanel();
 	    left = new JPanel();
 	    graph = new JPanel();	
-	    campass = new JPanel();	
+	    compass = new JPanel();	
 	    temp = new JPanel();
 	    buttons = new JPanel();
 	   
@@ -82,12 +82,12 @@ public class ConsoleGUI {
 	}
 	 private void setupGUI() {
 
-		 campass.add(myCompass);
+		 compass.add(myCompass);
 		 myCompass.setVisible(true);
 	     graph.add(new JLabel ("graph"));
 	     
 	     left.setLayout(new GridLayout(2,1));
-	     left.add(campass);
+	     left.add(compass);
 	     left.add(graph);
 	     
 	     myDisplay.setLayout(new BorderLayout());
