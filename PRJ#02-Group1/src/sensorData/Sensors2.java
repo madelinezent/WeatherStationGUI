@@ -12,7 +12,7 @@ import sensors2.WindSensor;
  * @version 05/06/20
  */
 
-public class Sensors2 {
+public class Sensors2 implements ConsoleSensor {
 
     /** All sensors. */
     private HumiditySensor humid;
