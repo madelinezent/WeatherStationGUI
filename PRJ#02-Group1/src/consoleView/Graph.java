@@ -18,8 +18,6 @@ import javax.swing.SwingUtilities;
 /**
  * Graph creates a data graph of the past 15 inputted values for a data-type.
  * @author Deline Zent
- * @citation Madona Syombua, Youtube Video: 2D Graphics Using Java Swing Utilities 
- * https://www.youtube.com/watch?v=wJY43Ml6vcQ
  */
 public class Graph extends JPanel {
 
@@ -221,3 +219,9 @@ public class Graph extends JPanel {
         });
     }
 }
+
+/**
+ * CITATIONS:
+ * Madona Syombua, Youtube Video: 2D Graphics Using Java Swing Utilities 
+ * https://www.youtube.com/watch?v=wJY43Ml6vcQ
+ */
