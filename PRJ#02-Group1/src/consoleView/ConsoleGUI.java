@@ -1,6 +1,7 @@
 package consoleView;
 import java.awt.*;
 import javax.swing.*;
+import consoleDataCollectors.DataType;
 
 import java.time.LocalDateTime;
 
@@ -27,7 +28,7 @@ public class ConsoleGUI {
 	private final JFrame myFrame;
 
 	 /**Containers to organize components.*/
-	private JPanel myDisplay, left, temp, graph, compass, buttons;
+	private JPanel myDisplay, left, temp, graph, campass, buttons;
 
 	/** Multi-line area that displays plain text.*/
 	private JTextArea myDate, myTime, myTemp, myRain, myHumid, 
@@ -35,10 +36,11 @@ public class ConsoleGUI {
 	/** Multi-line buttons.*/
 	private JButton temprature, humidity, windSpeed, rainRate, hilow, graphic,rainFall;
 	
-	private WindCompass myCompass;
+	private DataType myData;
 
 	
-	public ConsoleGUI(){
+	public ConsoleGUI(DataType theData){
+		myData = theData;
 		//initialize frame.
 		myFrame = new JFrame("Weather");
 		
@@ -46,7 +48,7 @@ public class ConsoleGUI {
 	    myDisplay = new JPanel();
 	    left = new JPanel();
 	    graph = new JPanel();	
-	    compass = new JPanel();	
+	    campass = new JPanel();	
 	    temp = new JPanel();
 	    buttons = new JPanel();
 	   
@@ -70,9 +72,6 @@ public class ConsoleGUI {
 	    myPressure = new JTextArea(50, 30);
 	    myWindSpeed = new JTextArea(50, 30);
 
-	    //Initialize compass.
-	    myCompass = new WindCompass();
-	    
 	    
 	    
 	    myFrame.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -82,12 +81,11 @@ public class ConsoleGUI {
 	}
 	 private void setupGUI() {
 
-		 compass.add(myCompass);
-		 myCompass.setVisible(true);
+		 campass.add(new JLabel("campass"));	     
 	     graph.add(new JLabel ("graph"));
 	     
 	     left.setLayout(new GridLayout(2,1));
-	     left.add(compass);
+	     left.add(campass);
 	     left.add(graph);
 	     
 	     myDisplay.setLayout(new BorderLayout());
@@ -136,12 +134,6 @@ public class ConsoleGUI {
 			
 	 }
 	 public void updata() {
-		 
-	 }
-	 public static void main(final String[] theArgs) {
-		 ConsoleGUI gui = new ConsoleGUI();
-
-		 
 		 
 	 }
 
