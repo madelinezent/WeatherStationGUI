@@ -12,6 +12,7 @@ import consoleDataCollectors.SensorList;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Console display. Display average data from most 8 different weather stations.
@@ -42,7 +43,10 @@ public class ConsoleGUI implements ActionListener {
 	private static SensorList mySensorList;
 	
 	private static Font dataFont = new Font("Courier New", Font.BOLD, 30);
-
+	
+	private enum DisplayState {CURRENT, MAX, MIN};
+	
+	private DisplayState myState = DisplayState.CURRENT;
 
 	/** Create JFrame object to display GUI. */
 	private final JFrame myFrame;
@@ -119,6 +123,7 @@ public class ConsoleGUI implements ActionListener {
 		myFrame.setSize(new Dimension(1000, 1000));
 
 		setupGUI();
+		update();
 	}
 
 	private void setupGUI() {
@@ -244,8 +249,42 @@ public class ConsoleGUI implements ActionListener {
 		buttonAction();
 	}
 
-	public void updata() {
+	/**
+	 * Updates the GUI by gathering data from each sensor and displaying it graphically.
+	 * @throws InterruptedException 
+	 */
+	public void update() {
 
+		while(true) {
+			
+			myData.update();
+			
+			myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
+			
+			switch(myState) {
+			case CURRENT:
+				
+				
+				
+				break;
+			case MAX:
+				break;
+			case MIN:
+				break;
+				
+				
+			}
+			
+			try {
+				TimeUnit.SECONDS.sleep(2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 	}
 
 	/**
