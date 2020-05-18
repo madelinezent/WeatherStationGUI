@@ -20,22 +20,11 @@ public class Sensors2 implements ConsoleSensor {
     private TemperatureSensor temp;
     private WindSensor wind;
 
-    /**
-     * Initializes each sensor class in group 2's project 1.
-     * 
-     * @author Deline Zent
-     * @versio 05/08/20
-     */
-    public Sensors2() {
+    public void Initialize() {
         humid = new HumiditySensor();
         rain = new RainSensor();
         temp = new TemperatureSensor();
         wind = new WindSensor();
-        Initialize();
-    }
-
-    public void Initialize() {
-        //TODO Add additional initializations 
     }
     
     //Sensor fields to be displayed by the console
