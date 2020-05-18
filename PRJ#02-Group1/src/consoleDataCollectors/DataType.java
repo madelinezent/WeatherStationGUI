@@ -63,7 +63,8 @@ public class DataType {
 	public double getCurrentRainRate() {return currentRainRate;}
 	public double getCurrentRainFall() {return currentRainFall;}
 	public double getCurrentHumIn() {return currentHumIn;}
-	public double getCurrentHumTempIn() {return currentTempIn;}
+	public double getCurrentHumOut() {return currentHumOut; }
+	public double getCurrentTempIn() {return currentTempIn;}
 	public double getCurrentTempOut() {return currentTempOut;}
 	public double getCurrentPressure() {return currentPressure;}
 

@@ -1,0 +1,138 @@
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 83
+humidity (percentage): 37
+wind speed (miles per hour): 34
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 43
+humidity (percentage): 23
+wind speed (miles per hour): 31
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 24
+humidity (percentage): 28
+wind speed (miles per hour): 27
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 29
+humidity (percentage): 21
+wind speed (miles per hour): 38
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 47
+humidity (percentage): 29
+wind speed (miles per hour): 36
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 22
+humidity (percentage): 35
+wind speed (miles per hour): 39
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 57
+humidity (percentage): 27
+wind speed (miles per hour): 25
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 89
+humidity (percentage): 20
+wind speed (miles per hour): 22
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 86
+humidity (percentage): 37
+wind speed (miles per hour): 22
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 72
+humidity (percentage): 37
+wind speed (miles per hour): 29
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 49
+humidity (percentage): 34
+wind speed (miles per hour): 30
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 66
+humidity (percentage): 24
+wind speed (miles per hour): 38
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 73
+humidity (percentage): 26
+wind speed (miles per hour): 35
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 55
+humidity (percentage): 24
+wind speed (miles per hour): 28
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 69
+humidity (percentage): 33
+wind speed (miles per hour): 30
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 75
+humidity (percentage): 24
+wind speed (miles per hour): 25
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 47
+humidity (percentage): 29
+wind speed (miles per hour): 39
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 70
+humidity (percentage): 21
+wind speed (miles per hour): 37
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 37
+humidity (percentage): 30
+wind speed (miles per hour): 29
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 46
+humidity (percentage): 23
+wind speed (miles per hour): 33
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 41
+temperature (fahrenheit): 32
+humidity (percentage): 32
+wind speed (miles per hour): 33
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 42
+temperature (fahrenheit): 34
+humidity (percentage): 36
+wind speed (miles per hour): 21
+
+Wireless Vantage Pro2 Console Receivers
+rainfall (inches): 40
+temperature (fahrenheit): 53
+humidity (percentage): 35
+wind speed (miles per hour): 34
+

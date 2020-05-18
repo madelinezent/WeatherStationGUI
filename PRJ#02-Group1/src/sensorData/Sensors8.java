@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import data.WeatherData;
 import model.AbstractOutputDevice;
 import model.ISS;
 import model.WeatherMonitoringApp;
@@ -13,13 +14,17 @@ import model.WeatherMonitoringApp;
 
 public class Sensors8 implements ConsoleSensor {
 	
-	private AbstractOutputDevice myData;
+	AbstractOutputDevice myData;
 	
+	WeatherData myWeatherData;
+	 
     /**
      * Initializes sensor by creating a ISS object.
      */
     @Override
     public void Initialize(){
+        myWeatherData = new WeatherData();
+        
         final WeatherMonitoringApp testApp = new WeatherMonitoringApp();
         
         final ArrayList<AbstractOutputDevice> testDeviceArray = 
@@ -27,6 +32,7 @@ public class Sensors8 implements ConsoleSensor {
         testDeviceArray.add(testApp);
 
         new ISS(testDeviceArray);	
+        
         
     }
     
@@ -44,7 +50,7 @@ public class Sensors8 implements ConsoleSensor {
 
 	@Override
 	public double rainFall() {
-		return (double) myData.getWeatherData().getRainfall();
+		return (double) myWeatherData.getRainfall();
 	}
 
 	@Override
@@ -56,7 +62,7 @@ public class Sensors8 implements ConsoleSensor {
 	@Override
 	public double humOut() {
 		
-		return (double) myData.getWeatherData().getHumidity();
+		return (double) myWeatherData.getHumidity();
 	}
 
 	@Override
@@ -67,7 +73,7 @@ public class Sensors8 implements ConsoleSensor {
 
 	@Override
 	public double tempOut() {
-		return (double) myData.getWeatherData().getAirTemperatures();
+		return (double) myWeatherData.getAirTemperatures();
 	}
 
 	@Override
@@ -83,17 +89,17 @@ public class Sensors8 implements ConsoleSensor {
 		for(int i = 0; i < winDirectionD.size(); i++) {
 			winDirection.put(winDirectionS.get(i), winDirectionD.get(i));
 		}
-		return winDirection.get(myData.getWeatherData().getWindDirection());
+		return winDirection.get(myWeatherData.getWindDirection());
 	}
 
 	@Override
 	public double windSpeed() {
-		return (double) myData.getWeatherData().getWindSpeed();
+		return (double) myWeatherData.getWindSpeed();
 	}
 
 	@Override
 	public double pressure() {
-		return myData.getWeatherData().getPressure();
+		return myWeatherData.getPressure();
 	}
 
 	@Override
