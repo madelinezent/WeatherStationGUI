@@ -40,6 +40,9 @@ public class ConsoleGUI implements ActionListener {
 	private static DataType myData;
 
 	private static SensorList mySensorList;
+	
+	private static Font dataFont = new Font("Courier New", Font.BOLD, 30);
+
 
 	/** Create JFrame object to display GUI. */
 	private final JFrame myFrame;
