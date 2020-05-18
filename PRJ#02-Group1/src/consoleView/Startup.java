@@ -65,6 +65,7 @@ public class Startup {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(48, 398, 119, 28);
 		frame.getContentPane().add(comboBox);
+		comboBox.addItem("None");
 		comboBox.addItem("ISS2");
 		comboBox.addItem("ISS4");
 		comboBox.addItem("ISS6");
@@ -74,6 +75,7 @@ public class Startup {
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(290, 398, 118, 28);
 		frame.getContentPane().add(comboBox_1);
+		comboBox_1.addItem("None");
 		comboBox_1.addItem("ISS2");
 		comboBox_1.addItem("ISS4");
 		comboBox_1.addItem("ISS6");
@@ -89,6 +91,7 @@ public class Startup {
 		JComboBox comboBox_2 = new JComboBox();
 		comboBox_2.setBounds(539, 396, 119, 33);
 		frame.getContentPane().add(comboBox_2);
+		comboBox_2.addItem("None");
 		comboBox_2.addItem("ISS2");
 		comboBox_2.addItem("ISS4");
 		comboBox_2.addItem("ISS6");
@@ -98,6 +101,7 @@ public class Startup {
 		JComboBox comboBox_3 = new JComboBox();
 		comboBox_3.setBounds(758, 396, 119, 33);
 		frame.getContentPane().add(comboBox_3);
+		comboBox_3.addItem("None");
 		comboBox_3.addItem("ISS2");
 		comboBox_3.addItem("ISS4");
 		comboBox_3.addItem("ISS6");
@@ -107,6 +111,7 @@ public class Startup {
 		JComboBox comboBox_4 = new JComboBox();
 		comboBox_4.setBounds(48, 492, 118, 28);
 		frame.getContentPane().add(comboBox_4);
+		comboBox_4.addItem("None");
 		comboBox_4.addItem("ISS2");
 		comboBox_4.addItem("ISS4");
 		comboBox_4.addItem("ISS6");
@@ -116,6 +121,7 @@ public class Startup {
 		JComboBox comboBox_5 = new JComboBox();
 		comboBox_5.setBounds(290, 492, 118, 28);
 		frame.getContentPane().add(comboBox_5);
+		comboBox_5.addItem("None");
 		comboBox_5.addItem("ISS2");
 		comboBox_5.addItem("ISS4");
 		comboBox_5.addItem("ISS6");
@@ -125,6 +131,7 @@ public class Startup {
 		JComboBox comboBox_6 = new JComboBox();
 		comboBox_6.setBounds(539, 490, 119, 33);
 		frame.getContentPane().add(comboBox_6);
+		comboBox_6.addItem("None");
 		comboBox_6.addItem("ISS2");
 		comboBox_6.addItem("ISS4");
 		comboBox_6.addItem("ISS6");
@@ -134,6 +141,7 @@ public class Startup {
 		JComboBox comboBox_7 = new JComboBox();
 		comboBox_7.setBounds(759, 490, 118, 33);
 		frame.getContentPane().add(comboBox_7);
+		comboBox_7.addItem("None");
 		comboBox_7.addItem("ISS2");
 		comboBox_7.addItem("ISS4");
 		comboBox_7.addItem("ISS6");
@@ -166,10 +174,13 @@ public class Startup {
 						sensors.add(new Sensors6());
 					} else if(boxes.get(i).getSelectedItem().equals("ISS4")) {
 						sensors.add(new Sensors7());
-					} else {
+					} else if(boxes.get(i).getSelectedItem().equals("ISS8")) {
 						sensors.add(new Sensors8());
 					}
 				}
+				
+				System.out.println("Sensor Suite List:");
+				System.out.println(sensors);
 				
 				DataType type = new DataType(sensors);
 				SensorList list = new SensorList(sensors);
