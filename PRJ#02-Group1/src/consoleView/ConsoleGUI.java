@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  * 
  * @author Xiuxiang Wu
  * @author Nam Hoang
+ * @author Maxfield England
  * @version 5-11-2020
  */
 
@@ -41,11 +42,11 @@ public class ConsoleGUI implements ActionListener {
 	private static DataType myData;
 
 	private static SensorList mySensorList;
-	
+
 	private static Font dataFont = new Font("Courier New", Font.BOLD, 30);
-	
+
 	private enum DisplayState {CURRENT, MAX, MIN};
-	
+
 	private DisplayState myState = DisplayState.CURRENT;
 
 	/** Create JFrame object to display GUI. */
@@ -53,11 +54,11 @@ public class ConsoleGUI implements ActionListener {
 
 	/** Containers to organize components. */
 	private JPanel myDisplay, left, graph, compass, buttons, details, date, values, bottom, top, layer1, layer2, layer3,
-			top1, top2, top3, bottom1, bottom2, bottom3;
+	top1, top2, top3, bottom1, bottom2, bottom3;
 
 	/** Multi-line area that displays plain text. */
 	private JTextField myTemp, myTempIn, myHumid, myHumidIn, myDate, myTime, myRainRate, myRainFall, myPressure,
-			myWindChill, myRainIcon, myCloudIcon, myMoonIcon;
+	myWindChill, myRainIcon, myCloudIcon, myMoonIcon;
 	/** Multi-line buttons. */
 	private JButton temprature, humidity, tempratureIn, humidityIn, rainRate, hilow, pressure, rainFall;
 
@@ -123,7 +124,24 @@ public class ConsoleGUI implements ActionListener {
 		myFrame.setSize(new Dimension(1000, 1000));
 
 		setupGUI();
+
+		ActionListener updateAction = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				update();
+
+			}
+		};
+
 		update();
+		Timer updateTimer = new Timer(2500, updateAction);
+		
+		updateTimer.setRepeats(true);
+		
+		updateTimer.start();
+		
+
 	}
 
 	private void setupGUI() {
@@ -255,36 +273,37 @@ public class ConsoleGUI implements ActionListener {
 	 */
 	public void update() {
 
-		while(true) {
-			
-			myData.update();
-			
-			myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
-			
-			switch(myState) {
-			case CURRENT:
-				
-				
-				
-				break;
-			case MAX:
-				break;
-			case MIN:
-				break;
-				
-				
-			}
-			
-			try {
-				TimeUnit.SECONDS.sleep(2);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+
+		myData.update();
+		myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
+
+		//TODO: Flesh these out for each state!
+		/*
+		 * The HI/LOW button should cycle between the display states for 
+		 * MAX, MIN, CURRENT.
+		 * 
+		 * CURRENT means that we update every field with the most recent
+		 * value occupying the field.
+		 * MAX means we update every field with the maximum value that's ever
+		 * been held (found in the associated arraylist; there is a max function.
+		 * 
+		 * MIN means we update every field with the minimum value that's ever been
+		 * held (see above; there's a min function).
+		 * 
+		 */
+		switch(myState) {
+		case CURRENT:
+
+			break;
+		case MAX:
+			break;
+		case MIN:
+			break;
+
 		}
-		
-		
+
+
+
 	}
 
 	/**
@@ -375,23 +394,23 @@ public class ConsoleGUI implements ActionListener {
 
 		if (e.getSource() == hilow) {
 			if (click == false) {
-//				myTemp.setText(String.valueOf(Collections.max(mySensorList.getTempInList())));
-//				myTempIn.setText(String.valueOf(Collections.max(mySensorList.getTempOutList())));
-//				myHumid.setText(String.valueOf(Collections.max(mySensorList.getHumOutList())));
-//				myHumidIn.setText(String.valueOf(Collections.max(mySensorList.getHumInList())));
-//				myRainRate.setText(String.valueOf(Collections.max(mySensorList.getRainRateList())));
-//				myPressure.setText(String.valueOf(Collections.max(mySensorList.getPressureList())));
-//				myRainFall.setText(String.valueOf(Collections.max(mySensorList.getRainFallList())));
+				//				myTemp.setText(String.valueOf(Collections.max(mySensorList.getTempInList())));
+				//				myTempIn.setText(String.valueOf(Collections.max(mySensorList.getTempOutList())));
+				//				myHumid.setText(String.valueOf(Collections.max(mySensorList.getHumOutList())));
+				//				myHumidIn.setText(String.valueOf(Collections.max(mySensorList.getHumInList())));
+				//				myRainRate.setText(String.valueOf(Collections.max(mySensorList.getRainRateList())));
+				//				myPressure.setText(String.valueOf(Collections.max(mySensorList.getPressureList())));
+				//				myRainFall.setText(String.valueOf(Collections.max(mySensorList.getRainFallList())));
 				hilow.setText("High");
 				click = !click;
 			} else if (click == true) {
-//				myTemp.setText(String.valueOf(Collections.min(mySensorList.getTempOutList())));
-//				myTempIn.setText(String.valueOf(Collections.min(mySensorList.getTempInList())));
-//				myHumid.setText(String.valueOf(Collections.min(mySensorList.getHumOutList())));
-//				myHumidIn.setText(String.valueOf(Collections.min(mySensorList.getHumInList())));
-//				myRainRate.setText(String.valueOf(Collections.min(mySensorList.getRainRateList())));
-//				myPressure.setText(String.valueOf(Collections.min(mySensorList.getPressureList())));
-//				myRainFall.setText(String.valueOf(Collections.min(mySensorList.getRainFallList())));
+				//				myTemp.setText(String.valueOf(Collections.min(mySensorList.getTempOutList())));
+				//				myTempIn.setText(String.valueOf(Collections.min(mySensorList.getTempInList())));
+				//				myHumid.setText(String.valueOf(Collections.min(mySensorList.getHumOutList())));
+				//				myHumidIn.setText(String.valueOf(Collections.min(mySensorList.getHumInList())));
+				//				myRainRate.setText(String.valueOf(Collections.min(mySensorList.getRainRateList())));
+				//				myPressure.setText(String.valueOf(Collections.min(mySensorList.getPressureList())));
+				//				myRainFall.setText(String.valueOf(Collections.min(mySensorList.getRainFallList())));
 				hilow.setText("Low");
 				click = !click;
 			}
