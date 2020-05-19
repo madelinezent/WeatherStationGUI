@@ -110,9 +110,7 @@ public class WindCompass extends JLayeredPane {
 		
 		//If we choose a bad multiple of 15, use the closest multiple of 30 instead.
 		if (isInvalid) closestAngle = roundByDiscreteNum(windAngle, 30) % 360;
-				
-		System.out.println("Choosing angle " + closestAngle);
-		
+						
 		String degFileName = ("/displayImgs/deg" + closestAngle + ".png");
 		compassLabel.setIcon(new ImageIcon(WindCompass.class.getResource(degFileName)));
 		
