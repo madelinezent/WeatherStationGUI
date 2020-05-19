@@ -86,6 +86,7 @@ public class DataType {
 		updateHumOut();
 		updateTempIn();
 		updateTempOut();
+		updatePressure();
 	}
 
 	private void updateWindDirection() {
@@ -205,5 +206,18 @@ public class DataType {
 		else currentTempOut = 0;
 		tempOutHistory.add(currentTempOut);
 	}
+	
+	private void updatePressure() {
+		double total = 0, sensorsUsed = 0;
+		for (ConsoleSensor sensor : mySensors) {
+			double data = sensor.pressure();
+			if (data < 0) {continue;}
+			total += data;
+			sensorsUsed++;
+		}
+		if (sensorsUsed > 0) currentPressure = total / sensorsUsed;
+		else currentPressure = 0;
+		pressureHistory.add(currentPressure);
+		}
 
 }
