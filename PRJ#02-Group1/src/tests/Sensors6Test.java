@@ -5,6 +5,11 @@ import org.junit.jupiter.api.*;
 
 import sensorData.*;
 
+/**
+* Tests the Sensors6 implementation of the ConsoleSensor interface for Project 1 Group 6's integrated sensor suite.
+*
+* @author Maxfield England
+**/
 public class Sensors6Test {
 	
 	ConsoleSensor s6;
