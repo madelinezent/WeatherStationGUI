@@ -43,6 +43,11 @@ public class DataType {
 		tempInHistory = new ArrayList<Double>();
 		tempOutHistory = new ArrayList<Double>();
 		pressureHistory = new ArrayList<Double>();
+		
+		for (ConsoleSensor sensor : sensors) {
+			
+			sensor.Initialize();
+		}
 	}
 
 	/** Getter methods for historical data lists. */
@@ -83,110 +88,120 @@ public class DataType {
 	}
 
 	private void updateWindDirection() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.windDirection();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentWindDirection = total / sensorsUsed;
+		if (sensorsUsed > 0) currentWindDirection = total / sensorsUsed;
+		else currentWindDirection = 0;
 		windDirectionHistory.add(currentWindDirection);
 	}
 
 	private void updateWindSpeed() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.windSpeed();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentWindSpeed = total / sensorsUsed;
+		if (sensorsUsed > 0) currentWindSpeed = total / sensorsUsed;
+		else currentWindSpeed = 0;
 		windSpeedHistory.add(currentWindSpeed);
 	}
 
 	private void updateWindChill() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.windchill();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
+			System.out.println("Incrementing sensors");
 		}
-		currentWindChill = total / sensorsUsed;
+		if (sensorsUsed > 0) currentWindChill = total / sensorsUsed;
+		else currentWindChill = 0;
 		windChillHistory.add(currentWindChill);
 	}
 
 	private void updateRainRate() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.rainRate();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentRainRate = total / sensorsUsed;
+		if (sensorsUsed > 0) currentRainRate = total / sensorsUsed;
+		else currentRainRate = 0;
 		rainRateHistory.add(currentRainRate);
 	}
 
 	private void updateRainFall() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.rainFall();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentRainFall = total / sensorsUsed;
+		if (sensorsUsed > 0) currentRainFall = total / sensorsUsed;
+		else currentRainFall = 0;
 		rainFallHistory.add(currentRainFall);
 	}
 
 	private void updateHumIn() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.humIn();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentHumIn = total / sensorsUsed;
+		if (sensorsUsed > 0) currentHumIn = total / sensorsUsed;
+		else currentHumIn = 0;
 		humInHistory.add(currentHumIn);
 	}
 
 	private void updateHumOut() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.humOut();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentHumOut = total / sensorsUsed;
+		if (sensorsUsed > 0) currentHumOut = total / sensorsUsed;
+		else currentHumOut = 0;
 		humOutHistory.add(currentHumOut);
 	}
 
 	private void updateTempIn() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.tempIn();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentTempIn = total / sensorsUsed;
+		if (sensorsUsed > 0) currentTempIn = total / sensorsUsed;
+		else currentTempIn = 0;
 		tempInHistory.add(currentTempIn);
 	}
 
 	private void updateTempOut() {
-		int total = 0, sensorsUsed = 0;
+		double total = 0, sensorsUsed = 0;
 		for (ConsoleSensor sensor : mySensors) {
 			double data = sensor.tempOut();
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
 		}
-		currentTempOut = total / sensorsUsed;
+		if (sensorsUsed > 0) currentTempOut = total / sensorsUsed;
+		else currentTempOut = 0;
 		tempOutHistory.add(currentTempOut);
 	}
 
