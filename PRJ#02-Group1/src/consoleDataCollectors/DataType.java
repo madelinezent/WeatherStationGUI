@@ -60,6 +60,7 @@ public class DataType {
 	public ArrayList<Double> getHumOutHistory() {return humOutHistory;}
 	public ArrayList<Double> getTempInHistory() {return tempInHistory;}
 	public ArrayList<Double> getTempOutHistory() {return tempOutHistory;}
+	public ArrayList<Double> getPressureHistory() {return pressureHistory;}
 
 	/** Getter methods for current data to display on the GUI. */
 	public double getCurrentWindDirection() {return currentWindDirection;}
