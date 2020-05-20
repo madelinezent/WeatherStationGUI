@@ -9,11 +9,6 @@ import javax.swing.*;
 import consoleDataCollectors.DataType;
 import consoleDataCollectors.SensorList;
 
-import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
-
 /**
  * Console display. Display average data from most 8 different weather stations.
  * 
@@ -24,26 +19,15 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class ConsoleGUI implements ActionListener {
-	/** A ToolKit. */
-	private static final Toolkit KIT = Toolkit.getDefaultToolkit();
-
-	/** The Dimension of the screen. */
-	private static final Dimension SCREEN_SIZE = KIT.getScreenSize();
-
-	/** The width of the screen. */
-	private static final int SCREEN_WIDTH = SCREEN_SIZE.width;
-
-	/** The height of the screen. */
-	private static final int SCREEN_HEIGHT = SCREEN_SIZE.height;
 
 	/** Empty String **/
 	private static final String EMPTY = "";
 
 	private static DataType myData;
 
-	private static SensorList mySensorList;
-
 	private static Font dataFont = new Font("Courier New", Font.BOLD, 30);
+	private static Font dataFontMini = new Font("Courier New", Font.BOLD, 18);
+	private static Font dataFrontUltraMini = new Font("Courier New", Font.BOLD, 12);
 
 	private enum DisplayState {CURRENT, MAX, MIN};
 
@@ -57,7 +41,7 @@ public class ConsoleGUI implements ActionListener {
 	top1, top2, top3, bottom1, bottom2, bottom3;
 
 	/** Multi-line area that displays plain text. */
-	private JTextField myTemp, myTempIn, myHumid, myHumidIn, myDate, myTime, myRainRate, myRainFall, myPressure,
+	private JLabel myTemp, myTempIn, myHumid, myHumidIn, myDate, myTime, myRainRate, myRainFall, myPressure,
 	myWindChill, myRainIcon, myCloudIcon, myMoonIcon;
 	/** Multi-line buttons. */
 	private JButton temprature, humidity, tempratureIn, humidityIn, rainRate, hilow, pressure, rainFall;
@@ -68,9 +52,8 @@ public class ConsoleGUI implements ActionListener {
 
 	public ConsoleGUI(DataType theData, SensorList theList) {
 		myData = theData;
-		mySensorList = theList;
 		// initialize frame.
-		myFrame = new JFrame("Weather");
+		myFrame = new JFrame("Vantage Pro2 Console Receiver");
 
 		/** initialize panels. */
 		myDisplay = new JPanel();
@@ -103,23 +86,35 @@ public class ConsoleGUI implements ActionListener {
 		pressure = new JButton("PRESSURE");
 		rainFall = new JButton("RAINFALL");
 
-		myTime = new JTextField(15);
-		myDate = new JTextField(15);
-		myCloudIcon = new JTextField(15);
-		myMoonIcon = new JTextField(15);
-		myTemp = new JTextField(15);
-		myRainRate = new JTextField(15);
-		myRainFall = new JTextField(15);
-		myHumid = new JTextField(15);
-		myTempIn = new JTextField(15);
-		myHumidIn = new JTextField(15);
-		myPressure = new JTextField(15);
-		myWindChill = new JTextField(15);
-		myRainIcon = new JTextField(15);
+		myTime = new JLabel();
+		myDate = new JLabel();
+		myCloudIcon = new JLabel();
+		myMoonIcon = new JLabel();
+		myTemp = new JLabel();
+		myRainRate = new JLabel();
+		myRainFall = new JLabel();
+		myHumid = new JLabel();
+		myTempIn = new JLabel();
+		myHumidIn = new JLabel();
+		myPressure = new JLabel();
+		myWindChill = new JLabel();
+		myRainIcon = new JLabel();
 
+		//Collect date and format
+		myDate.setFont(dataFontMini);
+		myTime.setFont(dataFontMini);
+		String[] date = java.time.LocalDate.now().toString().split("-");
+		myDate.setText(date[1] + "/" + date[2]);
+		
+		//Initialize weather/moonphase
+		myCloudIcon.setIcon(new ImageIcon(ConsoleGUI.class.getResource("/displayImgs/clear.png")));
+		
+		//Moon phase will just be static first quarter
+		myMoonIcon.setIcon(new ImageIcon(ConsoleGUI.class.getResource("/displayImgs/moonIcon.png")));
+		
 		// Initialize compass.
 		myCompass = new WindCompass();
-
+		
 		// myFrame.setSize(SCREEN_WIDTH*4/5, SCREEN_HEIGHT*4/5);
 		myFrame.setSize(new Dimension(1000, 1000));
 
@@ -140,16 +135,14 @@ public class ConsoleGUI implements ActionListener {
 		updateTimer.setRepeats(true);
 		
 		updateTimer.start();
-		
 
 	}
 
 	private void setupGUI() {
-		date.setLayout(new GridLayout(2, 4));
-		date.add(new JLabel("CouldIcon"));
-		date.add(new JLabel("MoonIcon"));
-		date.add(new JLabel("TIME"));
-		date.add(new JLabel("DATE"));
+		date.setLayout(new GridLayout(1, 4));
+		//date.add(new JLabel("CouldIcon"));
+		//date.add(new JLabel("MoonIcon"));
+		//date.add(new JLabel("TIME"));
 		date.add(myCloudIcon);
 		date.add(myMoonIcon);
 		date.add(myTime);
@@ -163,7 +156,7 @@ public class ConsoleGUI implements ActionListener {
 		top1.add(new JLabel("           "));
 		top1.add(new JLabel("           "));
 		top1.add(new JLabel("           "));
-		top1.add(new JLabel("TEMP OUt"), new Font("Courier New", Font.BOLD, 30));
+		top1.add(new JLabel("TEMP OUT"), new Font("Courier New", Font.BOLD, 30));
 		top1.add(new JLabel("HUM OUT"), new Font("Courier New", Font.BOLD, 30));
 		top1.add(new JLabel("Pressure"), new Font("Courier New", Font.BOLD, 30));
 
@@ -266,6 +259,26 @@ public class ConsoleGUI implements ActionListener {
 
 		buttonAction();
 	}
+	
+	/**
+	 * Takes the current weather data and tries to pick an appropriate weather icon.
+	 */
+	private void determineWeather() {
+		
+		boolean cloud = (myData.getCurrentHumOut() > 60);
+		boolean rain = (myData.getCurrentRainRate() > .75);
+		boolean cold = (myData.getCurrentTempOut() < 32);
+		String weather = "clear";
+				
+		if (cold && rain) weather = "snow";
+		if (cold && cloud && !rain) weather = "cloudy";
+		if (!cold && cloud && !rain) weather = "partCloudy";
+		if (!rain && !cloud) weather = "clear";
+		if (rain && !cold) weather = "rain";
+		
+		myCloudIcon.setIcon(new ImageIcon(ConsoleGUI.class.getResource("/displayImgs/"+ weather +".png")));
+		
+	}
 
 	/**
 	 * Updates the GUI by gathering data from each sensor and displaying it graphically.
@@ -273,9 +286,23 @@ public class ConsoleGUI implements ActionListener {
 	 */
 	public void update() {
 
-
+		//Collect, update time
+		
+		String[] timeStr = java.time.LocalTime.now().toString().split(":");
+		int hr = Integer.parseInt(timeStr[0]);
+		String ampm;
+		if (hr >= 12) {
+			ampm = "pm";
+			hr -= 12;
+			if (hr == 0) hr = 12;
+		}
+		else ampm = "am";
+		myTime.setText(hr + ":" + timeStr[1] + ampm );
+		
+		
 		myData.update();
 		myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
+		determineWeather();
 
 		//TODO: Flesh these out for each state!
 		/*
@@ -294,6 +321,8 @@ public class ConsoleGUI implements ActionListener {
 		switch(myState) {
 		case CURRENT:
 
+			
+			
 			break;
 		case MAX:
 			break;
