@@ -3,7 +3,6 @@ package consoleView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 
 import javax.swing.*;
 
@@ -21,36 +20,35 @@ import consoleDataCollectors.SensorList;
 
 public class ConsoleGUI implements ActionListener {
 
+	/** Empty String **/
+	private static final String EMPTY = "";
+
 	private static DataType myData;
 
 	private static Font dataFont = new Font("Courier New", Font.BOLD, 30);
-	private static Font dataFontMini = new Font("Courier New", Font.BOLD, 14);
-	private static Font dataFontMed = new Font("Courier New", Font.BOLD, 18);
+	private static Font dataFontMini = new Font("Courier New", Font.BOLD, 18);
+	private static Font dataFrontUltraMini = new Font("Courier New", Font.BOLD, 12);
 
 	private enum DisplayState {CURRENT, MAX, MIN};
-	private DisplayState myState = DisplayState.CURRENT;
 
-	private enum GraphData {TEMPOUT, TEMPIN, HUMOUT, HUMIN, RAINRATE, RAINFALL, PRESSURE};
-	private GraphData currGraphing = GraphData.TEMPOUT;
+	private DisplayState myState = DisplayState.CURRENT;
 
 	/** Create JFrame object to display GUI. */
 	private final JFrame myFrame;
 
 	/** Containers to organize components. */
-	private JPanel myDisplay, left, compass, buttons, top, dataPanel;
+	private JPanel myDisplay, left, graph, compass, buttons, details, date, values, bottom, top, layer1, layer2, layer3,
+	top1, top2, top3, bottom1, bottom2, bottom3;
 
 	/** Multi-line area that displays plain text. */
 	private JLabel myTemp, myTempIn, myHumid, myHumidIn, myDate, myTime, myRainRate, myRainFall, myPressure,
-	myWindChill, myCloudIcon, myMoonIcon, myGraphLabel, displayState;
+	myWindChill, myRainIcon, myCloudIcon, myMoonIcon;
 	/** Multi-line buttons. */
-	private JButton temperature, humidity, temperatureIn, humidityIn, rainRate, hilow, pressure, rainFall;
+	private JButton temprature, humidity, tempratureIn, humidityIn, rainRate, hilow, pressure, rainFall;
 
 	private WindCompass myCompass;
-	private Graph myGraph;
-	private JPanel weatherPanel; 
-	
-	//Display values with decimal format of 1 decimal place.
-	private DecimalFormat df = new DecimalFormat("0.0");
+
+	private boolean click = false;
 
 	public ConsoleGUI(DataType theData, SensorList theList) {
 		myData = theData;
@@ -60,17 +58,27 @@ public class ConsoleGUI implements ActionListener {
 		/** initialize panels. */
 		myDisplay = new JPanel();
 		left = new JPanel();
-		//graph = new JPanel();
+		graph = new JPanel();
 		compass = new JPanel();
+		details = new JPanel();
+		date = new JPanel();
 		buttons = new JPanel();
+		values = new JPanel();
+		bottom = new JPanel();
 		top = new JPanel();
-		weatherPanel = new JPanel();
-		
-		dataPanel = new JPanel();
+		layer1 = new JPanel();
+		layer2 = new JPanel();
+		layer3 = new JPanel();
+		top1 = new JPanel();
+		top2 = new JPanel();
+		top3 = new JPanel();
+		bottom1 = new JPanel();
+		bottom2 = new JPanel();
+		bottom3 = new JPanel();
 
 		// initialize buttons.
-		temperature = new JButton("TEMP");
-		temperatureIn = new JButton("TEMPIN");
+		temprature = new JButton("TEMP");
+		tempratureIn = new JButton("TEMPIN");
 		humidity = new JButton("HUM");
 		humidityIn = new JButton("HUMIN");
 		rainRate = new JButton("RAINRATE");
@@ -90,36 +98,28 @@ public class ConsoleGUI implements ActionListener {
 		myHumidIn = new JLabel();
 		myPressure = new JLabel();
 		myWindChill = new JLabel();
+		myRainIcon = new JLabel();
 
 		//Collect date and format
-		myDate.setFont(dataFontMed);
-		myTime.setFont(dataFontMed);
+		myDate.setFont(dataFontMini);
+		myTime.setFont(dataFontMini);
 		String[] date = java.time.LocalDate.now().toString().split("-");
 		myDate.setText(date[1] + "/" + date[2]);
 		
-		//Initialize weather/moon phase
+		//Initialize weather/moonphase
 		myCloudIcon.setIcon(new ImageIcon(ConsoleGUI.class.getResource("/displayImgs/clear.png")));
 		
 		//Moon phase will just be static first quarter
 		myMoonIcon.setIcon(new ImageIcon(ConsoleGUI.class.getResource("/displayImgs/moonIcon.png")));
 		
-		weatherPanel.add(myCloudIcon);
-		weatherPanel.add(myMoonIcon);
-		// Initialize compass and graph.
+		// Initialize compass.
 		myCompass = new WindCompass();
-		myGraph = new Graph(myData.getTempOutHistory());
-		myGraphLabel = new JLabel("Temperature");
-		myGraphLabel.setFont(dataFontMini);
 		
-		displayState = new JLabel("Displaying CURRENT");
-		displayState.setFont(dataFontMini);
-		
+		// myFrame.setSize(SCREEN_WIDTH*4/5, SCREEN_HEIGHT*4/5);
 		myFrame.setSize(new Dimension(1000, 1000));
-		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setupGUI();
-		update();
-		
+
 		ActionListener updateAction = new ActionListener() {
 
 			@Override
@@ -139,156 +139,121 @@ public class ConsoleGUI implements ActionListener {
 	}
 
 	private void setupGUI() {
+		date.setLayout(new GridLayout(1, 4));
+		//date.add(new JLabel("CouldIcon"));
+		//date.add(new JLabel("MoonIcon"));
+		//date.add(new JLabel("TIME"));
+		date.add(myCloudIcon);
+		date.add(myMoonIcon);
+		date.add(myTime);
+		date.add(myDate);
 
-		JLabel toLabel = new JLabel("TEMP OUT");
-		toLabel.setFont(dataFontMini);
-		JLabel hoLabel = new JLabel("HUM OUT");
-		hoLabel.setFont(dataFontMini);
-		JLabel presLabel = new JLabel("BAROMETER");
-		presLabel.setFont(dataFontMini);
-		JLabel tiLabel = new JLabel("TEMP IN");
-		tiLabel.setFont(dataFontMini);
-		JLabel hiLabel = new JLabel("HUM IN");
-		hiLabel.setFont(dataFontMini);
-		JLabel wcLabel = new JLabel("CHILL");
-		wcLabel.setFont(dataFontMini);
-		JLabel rrLabel = new JLabel("RAIN");
-		rrLabel.setFont(dataFontMini);
-		JLabel rfLabel = new JLabel ("DAILY RAIN");
-		rfLabel.setFont(dataFontMini);
-		
-		JPanel toPanel = new JPanel(new BorderLayout());
-		toPanel.add(toLabel, BorderLayout.NORTH);
-		toPanel.add(myTemp, BorderLayout.SOUTH);
-		
-		JPanel hoPanel = new JPanel(new BorderLayout());
-		hoPanel.add(hoLabel, BorderLayout.NORTH);
-		hoPanel.add(myHumid, BorderLayout.SOUTH);
-		
-		JPanel presPanel = new JPanel(new BorderLayout());
-		presPanel.add(presLabel, BorderLayout.NORTH);
-		presPanel.add(myPressure, BorderLayout.SOUTH);
-		
-		JPanel tiPanel = new JPanel(new BorderLayout());
-		tiPanel.add(tiLabel, BorderLayout.NORTH);
-		tiPanel.add(myTempIn, BorderLayout.SOUTH);
-		
-		JPanel hiPanel = new JPanel(new BorderLayout());
-		hiPanel.add(hiLabel, BorderLayout.NORTH);
-		hiPanel.add(myHumidIn, BorderLayout.SOUTH);
-		
-		JPanel wcPanel = new JPanel(new BorderLayout());
-		wcPanel.add(wcLabel, BorderLayout.NORTH);
-		wcPanel.add(myWindChill, BorderLayout.SOUTH);
-		
-		JPanel rrPanel = new JPanel(new BorderLayout());
-		rrPanel.add(rrLabel, BorderLayout.NORTH);
-		rrPanel.add(myRainRate, BorderLayout.SOUTH);
-		
-		JPanel rfPanel = new JPanel(new BorderLayout());
-		rfPanel.add(rfLabel, BorderLayout.NORTH);
-		rfPanel.add(myRainFall, BorderLayout.SOUTH);
-		
-		GridBagLayout gbl = new GridBagLayout();
-		dataPanel.setLayout(gbl);
-		GridBagConstraints gbc = new GridBagConstraints();
-        //gbc.anchor = GridBagConstraints.NORTH;
-		gbc.insets = new Insets(0, 0, 50, 0);
-		gbc.gridx = 5;
-		gbc.gridy = 0;
-		dataPanel.add(myCloudIcon, gbc);
-		gbc.gridx = 6;
-		gbc.gridy = 0;
-		dataPanel.add(myMoonIcon, gbc);
-		gbc.gridx = 7;
-		gbc.gridy = 0;
-		dataPanel.add(myTime, gbc);
-		gbc.gridx = 8;
-		gbc.gridy = 0;
-		dataPanel.add(myDate, gbc);
-		
-		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.insets = new Insets(0, 0, 50, 30);
-		gbc.gridx = 5;
-		gbc.gridy = 1;
-		dataPanel.add(toPanel, gbc);
-		gbc.gridx = 6;
-		gbc.gridy = 1;
-		dataPanel.add(hoPanel, gbc);
-		gbc.gridx = 7;
-		gbc.gridy = 1;
-		dataPanel.add(presPanel, gbc);
-		
-		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.insets = new Insets(0, 0, 50, 70);
-		gbc.gridx = 5;
-		gbc.gridy = 2;
-		dataPanel.add(tiPanel, gbc);
-		gbc.gridx = 6;
-		gbc.gridy = 2;
-		dataPanel.add(hiPanel, gbc);
-		gbc.gridx = 7;
-		gbc.gridy = 2;
-		dataPanel.add(wcPanel, gbc);
-		
-		//gbc.fill = GridBagConstraints.HORIZONTAL;
-		gbc.insets = new Insets(0, 0, 50, 30);
-		gbc.gridx = 5;
-		gbc.gridy = 3;
-		dataPanel.add(rfPanel, gbc);
-		gbc.gridx = 7;
-		gbc.gridy = 3;
-		dataPanel.add(rrPanel, gbc);
+		details.setLayout(new BorderLayout());
+		details.add(date, BorderLayout.NORTH);
+		details.add(values, BorderLayout.CENTER);
+
+		top1.setLayout(new GridLayout(2, 3));
+		top1.add(new JLabel("           "));
+		top1.add(new JLabel("           "));
+		top1.add(new JLabel("           "));
+		top1.add(new JLabel("TEMP OUT"), new Font("Courier New", Font.BOLD, 30));
+		top1.add(new JLabel("HUM OUT"), new Font("Courier New", Font.BOLD, 30));
+		top1.add(new JLabel("Pressure"), new Font("Courier New", Font.BOLD, 30));
+
+		bottom1.setLayout(new GridLayout(2, 3));
+		bottom1.add(myTemp);
+		bottom1.add(myHumid);
+		bottom1.add(myPressure);
+		bottom1.add(new JLabel("           "));
+		bottom1.add(new JLabel("           "));
+		bottom1.add(new JLabel("           "));
+
+		top2.setLayout(new GridLayout(2, 3));
+		top2.add(new JLabel("           "));
+		top2.add(new JLabel("           "));
+		top2.add(new JLabel("           "));
+		top2.add(new JLabel("TEMP IN"));
+		top2.add(new JLabel("HUM In"));
+		top2.add(new JLabel("WINDCHILL"));
+		bottom2.setLayout(new GridLayout(2, 3));
+		bottom2.add(myTempIn);
+		bottom2.add(myHumidIn);
+		bottom2.add(myWindChill);
+		bottom2.add(new JLabel("           "));
+		bottom2.add(new JLabel("           "));
+		bottom2.add(new JLabel("           "));
+
+		top3.setLayout(new GridLayout(2, 3));
+		top3.add(new JLabel("           "));
+		top3.add(new JLabel("           "));
+		top3.add(new JLabel("           "));
+		top3.add(new JLabel("Dayly Inch"));
+		top3.add(new JLabel("RainIcon"));
+		top3.add(new JLabel("RAINRATE"));
+		bottom3.setLayout(new GridLayout(2, 3));
+		bottom3.add(myRainFall);
+		bottom3.add(myRainIcon);
+		bottom3.add(myRainRate);
+		bottom3.add(new JLabel("           "));
+		bottom3.add(new JLabel("           "));
+		bottom3.add(new JLabel("           "));
+
+		layer1.setLayout(new BorderLayout());
+		layer1.add(top1, BorderLayout.NORTH);
+		layer1.add(bottom1, BorderLayout.CENTER);
+
+		layer2.setLayout(new BorderLayout());
+		layer2.add(top2, BorderLayout.NORTH);
+		layer2.add(bottom2, BorderLayout.CENTER);
+
+		layer3.setLayout(new BorderLayout());
+		layer3.add(top3, BorderLayout.NORTH);
+		layer3.add(bottom3, BorderLayout.CENTER);
+
+		values.setLayout(new GridLayout(3, 1));
+		values.add(layer1);
+		values.add(layer2);
+		values.add(layer3);
 
 		compass.add(myCompass);
 		myCompass.setVisible(true);
-		myGraph.setVisible(true);
+		graph.add(new JLabel("graph"));
 
-		left.setLayout(new BorderLayout());
-		left.add(compass, BorderLayout.NORTH);
-		left.add(myGraph, BorderLayout.CENTER);
+		left.setLayout(new GridLayout(2, 1));
+		left.add(compass);
+		left.add(graph);
 
 		myDisplay.setLayout(new BorderLayout());
-		myDisplay.add(dataPanel, BorderLayout.CENTER);
+		myDisplay.add(details, BorderLayout.EAST);
 		myDisplay.add(left, BorderLayout.WEST);
 
-		buttons.setLayout(new GridLayout(9, 2));
-		buttons.add(new JLabel(" "));
-		buttons.add(new JLabel(" "));
-		buttons.add(temperature);
+		buttons.setLayout(new GridLayout(12, 2));
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
+		buttons.add(temprature);
 		buttons.add(rainRate);
-		buttons.add(new JLabel(" "));
-		buttons.add(new JLabel(" "));
-		buttons.add(temperatureIn);
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
+		buttons.add(tempratureIn);
 		buttons.add(rainFall);
-		buttons.add(new JLabel(" "));
-		buttons.add(new JLabel(" "));
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
 		buttons.add(humidity);
 		buttons.add(pressure);
-		buttons.add(new JLabel(" "));
-		buttons.add(new JLabel(" "));
+		buttons.add(new JLabel("           "));
+		buttons.add(new JLabel("           "));
 		buttons.add(humidityIn);
 		buttons.add(hilow);
-		buttons.add(new JLabel(" "));
-		buttons.add(new JLabel(" "));
-		
-		myTemp.setFont(dataFont);
-		myRainRate.setFont(dataFont);
-		myRainFall.setFont(dataFont);
-		myHumid.setFont(dataFont);
-		myTempIn.setFont(dataFont);
-		myHumidIn.setFont(dataFont);
-		myPressure.setFont(dataFont);
-		myWindChill.setFont(dataFont);
 
 		myFrame.setLayout(new BorderLayout());
 		myFrame.add(myDisplay, BorderLayout.CENTER);
 		myFrame.add(buttons, BorderLayout.EAST);
-		myFrame.add(displayState, BorderLayout.SOUTH);
+		myFrame.add(bottom, BorderLayout.SOUTH);
 		myFrame.add(top, BorderLayout.NORTH);
 
-		myFrame.setResizable(true);
-		myFrame.setMinimumSize(new Dimension(1000, 600));
+		myFrame.setResizable(false);
 		myFrame.setVisible(true);
 		myFrame.pack();
 
@@ -334,98 +299,48 @@ public class ConsoleGUI implements ActionListener {
 		else ampm = "am";
 		myTime.setText(hr + ":" + timeStr[1] + ampm );
 		
+		
 		myData.update();
-		
-		//Update compass
 		myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
-		
-		//Update graph
-		switch(currGraphing) {
-		case HUMIN:
-			myGraphLabel.setText("Internal Humidity");
-			myGraph.setData(myData.getHumInHistory());
-		case HUMOUT:
-			myGraphLabel.setText("Humidity");
-			myGraph.setData(myData.getHumOutHistory());
-		case PRESSURE:
-			myGraphLabel.setText("Pressure");
-			myGraph.setData(myData.getPressureHistory());
-		case RAINFALL:
-			myGraphLabel.setText("Rainfall");
-			myGraph.setData(myData.getRainFallHistory());
-		case RAINRATE:
-			myGraphLabel.setText("Rain Rate");
-			myGraph.setData(myData.getRainRateHistory());
-		case TEMPIN:
-			myGraphLabel.setText("Internal Temperature");
-			myGraph.setData(myData.getTempInHistory());
-		case TEMPOUT:
-			myGraphLabel.setText("Temperature");
-			myGraph.setData(myData.getTempOutHistory());
-		}
-		
-		//Calculate a sensible weather state to display and update weather icon
 		determineWeather();
-		updateVals();
 
-	}
-	
-	/**
-	 * Updates display values on all regular fields, depending on the display mode (current values, highest values, or lowest values).
-	 */
-	private void updateVals() {
-		
+		//TODO: Flesh these out for each state!
+		/*
+		 * The HI/LOW button should cycle between the display states for 
+		 * MAX, MIN, CURRENT.
+		 * 
+		 * CURRENT means that we update every field with the most recent
+		 * value occupying the field.
+		 * MAX means we update every field with the maximum value that's ever
+		 * been held (found in the associated arraylist; there is a max function.
+		 * 
+		 * MIN means we update every field with the minimum value that's ever been
+		 * held (see above; there's a min function).
+		 * 
+		 */
 		switch(myState) {
 		case CURRENT:
 
-			myTemp.setText(df.format(myData.getCurrentTempOut()));
-			myRainRate.setText(df.format(myData.getCurrentRainRate()));
-			myRainFall.setText(df.format(myData.getCurrentRainFall()));
-			myHumid.setText(df.format(myData.getCurrentHumOut()));
-			myTempIn.setText(df.format(myData.getCurrentTempIn()));
-			myHumidIn.setText(df.format(myData.getCurrentHumIn()));
-			myPressure.setText(df.format(myData.getCurrentPressure()));
-			myWindChill.setText(df.format(myData.getCurrentWindChill()));
 			
-			displayState.setText("Displaying CURRENT");
+			
 			break;
 		case MAX:
-			myTemp.setText(df.format(myData.getMaxTempOut()));
-			myRainRate.setText(df.format(myData.getMaxRainRate()));
-			myRainFall.setText(df.format(myData.getMaxRainFall()));
-			myHumid.setText(df.format(myData.getMaxHumOut()));
-			myTempIn.setText(df.format(myData.getMaxTempIn()));
-			myHumidIn.setText(df.format(myData.getMaxHumIn()));
-			myPressure.setText(df.format(myData.getMaxPressure()));
-			myWindChill.setText(df.format(myData.getMaxWindChill()));
-			
-			displayState.setText("Displaying HIGH");
 			break;
 		case MIN:
-
-			myTemp.setText(df.format(myData.getMinTempOut()));
-			myRainRate.setText(df.format(myData.getMinRainRate()));
-			myRainFall.setText(df.format(myData.getMinRainFall()));
-			myHumid.setText(df.format(myData.getMinHumOut()));
-			myTempIn.setText(df.format(myData.getMinTempIn()));
-			myHumidIn.setText(df.format(myData.getMinHumIn()));
-			myPressure.setText(df.format(myData.getMinPressure()));
-			myWindChill.setText(df.format(myData.getMinWindChill()));
-
-			displayState.setText("Displaying LOW");
 			break;
 
 		}
 
-		
+
+
 	}
 
 	/**
 	 * Build action for buttons.
 	 */
 	public void buttonAction() {
-		temperature.addActionListener(this);
-		temperatureIn.addActionListener(this);
+		temprature.addActionListener(this);
+		tempratureIn.addActionListener(this);
 		humidity.addActionListener(this);
 		humidityIn.addActionListener(this);
 		rainRate.addActionListener(this);
@@ -434,58 +349,100 @@ public class ConsoleGUI implements ActionListener {
 		rainFall.addActionListener(this);
 	}
 
-	/**
-	 * Event handler for button presses; gives functionality to graph buttons, as well as 
-	 * value displays.
-	 * @author Nam Hoang
-	 * @author Maxfield England
-	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == temperature) {
-			currGraphing = GraphData.TEMPOUT;
+		if (e.getSource() == temprature) {
+			if (click == false) {
+				myTemp.setText(String.valueOf(myData.getCurrentTempOut()));
+				click = !click;
+			} else if (click == true) {
+				myTemp.setText(EMPTY);
+				click = !click;
+			}
 		}
 
-		if (e.getSource() == temperatureIn) {
-			currGraphing = GraphData.TEMPIN;
+		if (e.getSource() == tempratureIn) {
+			if (click == false) {
+				myTempIn.setText(String.valueOf(myData.getCurrentTempIn()));
+				click = !click;
+			} else if (click == true) {
+				myTempIn.setText(EMPTY);
+				click = !click;
 			}
+		}
 
 		if (e.getSource() == humidity) {
-			currGraphing = GraphData.HUMOUT;
+			if (click == false) {
+				myHumid.setText(String.valueOf(myData.getCurrentHumOut()));
+				click = !click;
+			} else if (click == true) {
+				myHumid.setText(EMPTY);
+				click = !click;
+			}
 		}
 
 		if (e.getSource() == humidityIn) {
-			currGraphing = GraphData.HUMIN;
+			if (click == false) {
+				myHumidIn.setText(String.valueOf(myData.getCurrentHumIn()));
+				click = !click;
+			} else if (click == true) {
+				myHumidIn.setText(EMPTY);
+				click = !click;
+			}
 		}
 
 		if (e.getSource() == rainRate) {
-			currGraphing = GraphData.RAINRATE;
+			if (click == false) {
+				myRainRate.setText(String.valueOf(myData.getCurrentRainRate()));
+				click = !click;
+			} else if (click == true) {
+				myRainRate.setText(EMPTY);
+				click = !click;
+			}
 		}
 
 		if (e.getSource() == pressure) {
-			currGraphing = GraphData.PRESSURE;
+			if (click == false) {
+				myPressure.setText(String.valueOf(myData.getCurrentPressure()));
+				click = !click;
+			} else if (click == true) {
+				myPressure.setText(EMPTY);
+				click = !click;
+			}
 		}
 
 		if (e.getSource() == rainFall) {
-			currGraphing = GraphData.RAINFALL;
+			if (click == false) {
+				myRainFall.setText(String.valueOf(myData.getCurrentRainFall()));
+				click = !click;
+			} else if (click == true) {
+				myRainFall.setText(EMPTY);
+				click = !click;
+			}
 		}
 
-		//Cycle between current, high, and low display values.
 		if (e.getSource() == hilow) {
-			
-			switch(myState) {
-			case CURRENT:
-				myState = DisplayState.MAX;
-				break;
-			case MAX:
-				myState = DisplayState.MIN;
-				break;
-			case MIN:
-				myState = DisplayState.CURRENT;
-				break;
-			
+			if (click == false) {
+				//				myTemp.setText(String.valueOf(Collections.max(mySensorList.getTempInList())));
+				//				myTempIn.setText(String.valueOf(Collections.max(mySensorList.getTempOutList())));
+				//				myHumid.setText(String.valueOf(Collections.max(mySensorList.getHumOutList())));
+				//				myHumidIn.setText(String.valueOf(Collections.max(mySensorList.getHumInList())));
+				//				myRainRate.setText(String.valueOf(Collections.max(mySensorList.getRainRateList())));
+				//				myPressure.setText(String.valueOf(Collections.max(mySensorList.getPressureList())));
+				//				myRainFall.setText(String.valueOf(Collections.max(mySensorList.getRainFallList())));
+				hilow.setText("High");
+				click = !click;
+			} else if (click == true) {
+				//				myTemp.setText(String.valueOf(Collections.min(mySensorList.getTempOutList())));
+				//				myTempIn.setText(String.valueOf(Collections.min(mySensorList.getTempInList())));
+				//				myHumid.setText(String.valueOf(Collections.min(mySensorList.getHumOutList())));
+				//				myHumidIn.setText(String.valueOf(Collections.min(mySensorList.getHumInList())));
+				//				myRainRate.setText(String.valueOf(Collections.min(mySensorList.getRainRateList())));
+				//				myPressure.setText(String.valueOf(Collections.min(mySensorList.getPressureList())));
+				//				myRainFall.setText(String.valueOf(Collections.min(mySensorList.getRainFallList())));
+				hilow.setText("Low");
+				click = !click;
 			}
-			updateVals();
 
 		}
 	}

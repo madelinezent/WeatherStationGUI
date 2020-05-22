@@ -55,7 +55,7 @@ public class Graph extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        // Scales graph to fit the data set
+        // Scales graph to fit the dat set
         double xScale = ((double) getWidth() - (3 * padding) - labelPad) / (weatherData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPad) / (getMaxData() - getMinData());
 
@@ -63,7 +63,7 @@ public class Graph extends JPanel {
         for (int i = 0; i < weatherData.size(); i++) {
             int x1 = (int) (i * xScale + padding + labelPad);
             int y1 = (int) ((getMaxData() - weatherData.get(i)) * yScale + padding);
-            graphPoints.add(new Point(this.getX() + x1, this.getY() + y1));
+            graphPoints.add(new Point(x1, y1));
         }
 
         g2.setColor(Color.WHITE);
