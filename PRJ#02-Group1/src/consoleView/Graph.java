@@ -55,7 +55,7 @@ public class Graph extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        // Scales graph to fit the dat set
+        // Scales graph to fit the data set
         double xScale = ((double) getWidth() - (3 * padding) - labelPad) / (weatherData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPad) / (getMaxData() - getMinData());
 

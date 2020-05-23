@@ -2,6 +2,7 @@ package consoleView;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.*;
 
@@ -40,20 +41,20 @@ public class WindCompass extends JLayeredPane {
 	public WindCompass() {
 		super();
 
-		Dimension dim = new Dimension(400, 400);
+		Dimension dim = new Dimension(300, 300);
 		this.setPreferredSize(dim);
 		this.setMinimumSize(dim);
 		
 		compassLabel = new JLabel();
 		
-		ImageIcon compassBG = new ImageIcon(WindCompass.class.getResource("/displayImgs/deg0.png"));
+		ImageIcon compassBG = new ImageIcon(new ImageIcon(WindCompass.class.getResource("/displayImgs/deg0.png")).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT));
 		
 		speedLabel = new JLabel("0", SwingConstants.CENTER);
 		speedLabel.setFont(new Font("Courier New", Font.BOLD, 30));
 		
 		//determine speedLabel position
-		int speedX = this.getX() + 165;
-		int speedY = this.getY() + 195;
+		int speedX = this.getX() + 120;
+		int speedY = this.getY() + 135;
 		
 		speedLabel.setLocation(speedX, speedY);
 
@@ -61,7 +62,6 @@ public class WindCompass extends JLayeredPane {
 		
 		compassLabel.setBounds( 0, 0,compassBG.getIconWidth(), compassBG.getIconHeight() ); 
 		speedLabel.setBounds( speedX, speedY,  80, 80 );
-		
 		
 	    this.add(compassLabel, new Integer(1));  
 	    this.add(speedLabel, new Integer(2));  
@@ -112,7 +112,7 @@ public class WindCompass extends JLayeredPane {
 		if (isInvalid) closestAngle = roundByDiscreteNum(windAngle, 30) % 360;
 						
 		String degFileName = ("/displayImgs/deg" + closestAngle + ".png");
-		compassLabel.setIcon(new ImageIcon(WindCompass.class.getResource(degFileName)));
+		compassLabel.setIcon(new ImageIcon(new ImageIcon(WindCompass.class.getResource(degFileName)).getImage().getScaledInstance(300, 300, Image.SCALE_DEFAULT)));
 		
 	}
 
@@ -143,28 +143,5 @@ public class WindCompass extends JLayeredPane {
 		}
 		return closest;
 	} 
-	
-	//Test main TODO: delete
-//	public static void main(String[] args) throws InterruptedException {
-//		WindCompass w = new WindCompass();
-//		
-//		JFrame j = new JFrame("Test Window");
-//		j.setVisible(true);
-//		j.add(w);
-//		w.setVisible(true);
-//		j.pack();
-//		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
-//		for (int i = 0; i < 30; i++) { 
-//			
-//			double testAngle = Math.random() * 360;
-//			double testSpeed = Math.random() * 120;
-//			w.update(testAngle, testSpeed);
-//			
-//			TimeUnit.SECONDS.sleep(1);
-//		}
-//		
-//	}
-	
 	
 }
