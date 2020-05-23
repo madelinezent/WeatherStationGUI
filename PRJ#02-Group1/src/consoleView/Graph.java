@@ -32,19 +32,22 @@ public class Graph extends JPanel {
     private Color gridColor = new Color(200, 200, 200);
     private int numberYDivisions = 6;
     private ArrayList<Double> weatherData;
+    private String graphLabel = "Temperature";
    
     /**
-     * Initializes a graph with an empty set of data.
+     * Initializes a graph with an empty set of data. Default
+     * label is for temperature.
      */
     public Graph() {
         weatherData = new ArrayList<Double>();
     }
     
     /**
-     * Initalizes a graph with data. 
+     * Initalizes a graph with data and a label.
      */
-    public Graph(ArrayList<Double> data) {
+    public Graph(ArrayList<Double> data, String label) {
         weatherData = lastValues(data);
+        graphLabel = label;
     }
 
     /**
@@ -72,6 +75,22 @@ public class Graph extends JPanel {
         this.weatherData = lastValues(newData);
         invalidate();
         this.repaint();
+    }
+    
+    /**
+     * Changes the graph label to an inputted string.
+     */
+    public void setLabel(String label) {
+        this.graphLabel = label;
+        invalidate();
+        this.repaint();
+    }
+    
+    /**
+     * Returns the label on the graph.
+     */
+    public String getLabel() {
+        return graphLabel;
     }
 
     /**
@@ -105,8 +124,7 @@ public class Graph extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        
-        // Scales graph to fit the dat set
+       
         double xScale = ((double) getWidth() - (3 * padding) - labelPad) / (weatherData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPad) / (getMaxData() - getMinData());
 
@@ -118,7 +136,6 @@ public class Graph extends JPanel {
         }
 
         g2.setColor(Color.WHITE);
-       
         g2.fillRect(padding + labelPad, padding, getWidth() - (2 * padding) - 
                 labelPad, getHeight() - 2 * padding - labelPad);
         g2.setColor(Color.BLUE);
@@ -138,6 +155,7 @@ public class Graph extends JPanel {
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(yLabel);
                 g2.drawString(yLabel, x0 - labelWidth - 6, y0 + (metrics.getHeight() / 2) - 3);
+                
             }
             g2.drawLine(x0, y0, x1, y1);
         }
@@ -152,14 +170,14 @@ public class Graph extends JPanel {
                     g2.setColor(gridColor);
                     g2.drawLine(x0, getHeight() - padding - labelPad - 1 - POINT_WIDTH, x1, padding);
                     g2.setColor(Color.BLACK);
-                    String xLabel = i + "";
-                    FontMetrics metrics = g2.getFontMetrics();
-                    int labelWidth = metrics.stringWidth(xLabel);
-                    g2.drawString(xLabel, x0 - labelWidth / 2, y0 + metrics.getHeight() + 3);
                 }
                 g2.drawLine(x0, y0, x1, y1);
             }
         }
+        FontMetrics metrics = g2.getFontMetrics();
+        int labelWidth = metrics.stringWidth(graphLabel);
+        g2.drawString(graphLabel, this.getWidth()/2 - this.getWidth() / 13, getHeight() - padding - labelPad + 
+                metrics.getHeight() + 3);
         
         g2.drawLine(padding + labelPad, getHeight() - padding - labelPad, padding + labelPad, padding);
         g2.drawLine(padding + labelPad, getHeight() - padding - labelPad, getWidth() -
@@ -198,7 +216,7 @@ public class Graph extends JPanel {
         for (int i = 0; i < maxDataPoints; i++) {
             data.add((double) random.nextDouble() * maxScore);
         }
-        Graph mainPanel = new Graph(data);
+        Graph mainPanel = new Graph(data, "Temp");
         mainPanel.setPreferredSize(new Dimension(700, 600));
         JFrame frame = new JFrame("Data Graph");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
