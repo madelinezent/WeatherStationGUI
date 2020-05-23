@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JFrame;
@@ -33,20 +34,70 @@ public class Graph extends JPanel {
     private ArrayList<Double> weatherData;
    
     /**
-     * Graph takes in array list of weather values and saves them. 
+     * Initializes a graph with an empty set of data.
+     */
+    public Graph() {
+        weatherData = new ArrayList<Double>();
+    }
+    
+    /**
+     * Initalizes a graph with data. 
      */
     public Graph(ArrayList<Double> data) {
+        weatherData = lastValues(data);
+    }
+
+    /**
+     * Returns the min weather data value for the weather list.
+     * @return the min weather value in range
+     */
+    public double getMinData() {
+        return Collections.min(weatherData);
+    }
+    
+    /**
+     * Return the max weather data value for the weather list.
+     * @return the max weather value in range.
+     */
+
+    public double getMaxData() {
+        return Collections.max(weatherData);
+    }
+
+    /**
+     * Changes the data on the graph to display the new data and repaints the graph. 
+     * @param newData is the new data to draw our graph from
+     */
+    public void setData(ArrayList<Double> newData) {
+        this.weatherData = lastValues(newData);
+        invalidate();
+        this.repaint();
+    }
+
+    /**
+     * Returns the weather data array list which is being used to graph. 
+     */
+    public ArrayList<Double> getWeatherData() {
+        return weatherData;
+    }
+
+    /**
+     * Returns a list with only the last 15 historical data points.
+     * @param A list of historical data points
+     * @return A list of the last 15 elements of data
+     */
+    public ArrayList<Double> lastValues(ArrayList<Double> data) {
         if (data.size() > 15) {
             ArrayList<Double> tempList = new ArrayList<Double>();
             // Only graph first last 15 points, so we make a new data list
             for (int i = 15; i > 0; i--) {
-                tempList.add(data.get(data.size()-i));
+                tempList.add(data.get(data.size() - i));
             }
             data = tempList;
         }
-        weatherData = data;
+        return data;
     }
-
+    
     /** 
      * Creates a graph with graph highs and lows based on the max or min the data set. 
      */
@@ -55,7 +106,7 @@ public class Graph extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         
-        // Scales graph to fit the data set
+        // Scales graph to fit the dat set
         double xScale = ((double) getWidth() - (3 * padding) - labelPad) / (weatherData.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPad) / (getMaxData() - getMinData());
 
@@ -135,58 +186,7 @@ public class Graph extends JPanel {
             g2.fillOval(x, y, ovalW, ovalH);
         }
     }
-
-    /**
-     * Returns the min weather data value for the weather list.
-     * @return the min weather value in range
-     */
-    private double getMinData() {
-        double min = Double.MAX_VALUE;
-        for (Double data : weatherData) {
-            min = Math.min(min, data);
-        }
-        return min;
-    }
     
-    /**
-     * Return the max weather data value for the weather list.
-     * @return the max weather value in range.
-     */
-
-    private double getMaxData() {
-        double max = Double.MIN_VALUE;
-        if (weatherData.size() == 0) { return 10; }
-        for (Double data : weatherData) {
-            max = Math.max(max, data);
-        }
-        return max;
-    }
-
-    /**
-     * Changes the data on the graph to display the new data and repaints the graph. 
-     * @param newData is the new data to draw our graph from
-     */
-    public void setData(ArrayList<Double> newData) {
-        if (newData.size() > 15) {
-            ArrayList<Double> tempList = new ArrayList<Double>();
-            // Only graph first last 15 points, so we make a new data list
-            for (int i = 15; i > 0; i--) {
-                tempList.add(newData.get(newData.size()-i));
-            }
-            newData = tempList;
-        }
-        this.weatherData = newData;
-        invalidate();
-        this.repaint();
-    }
-
-    /**
-     * Returns the weather data array list which is being used to graph. 
-     */
-    public ArrayList<Double> getWeatherData() {
-        return weatherData;
-    }
-
     /**
      * Initializes practice values to test the GUI graph.
      */
@@ -222,6 +222,10 @@ public class Graph extends JPanel {
 
 /**
  * CITATIONS:
- * Madona Syombua, Youtube Video: 2D Graphics Using Java Swing Utilities 
+ * Java Swing Tutorial: https://www.javatpoint.com/java-swing
+ * How to Plot a Graph: https://kodejava.org/how-do-i-draw-plot-a-graph/
+ * 2D Graphics Using Java Swing Utilities:
  * https://www.youtube.com/watch?v=wJY43Ml6vcQ
+ * Finding Mins and Max in an ArrayList: 
+ * https://www.javacodeexamples.com/find-minimum-maximum-value-in-arraylist/1010
  */
