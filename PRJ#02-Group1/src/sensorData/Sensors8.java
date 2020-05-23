@@ -18,7 +18,7 @@ import model.WeatherMonitoringApp;
 public class Sensors8 extends AbstractOutputDevice implements ConsoleSensor {
 
 	private WeatherData myWeatherThread;
-	
+
 	double rainFall;
 
 	double humOut;
@@ -38,41 +38,10 @@ public class Sensors8 extends AbstractOutputDevice implements ConsoleSensor {
 	 */
 	@Override
 	public void Initialize() {
-		
-		myWeatherThread = new WeatherData();
-		
-		ArrayList<Sensors8> myDevices = new ArrayList<Sensors8>();
-		
-		final Runnable myRunTimer = () -> {
-			try {
-				final Timer weatherTimer = new Timer();
-				weatherTimer.schedule(new TimerTask() {
 
-					@Override
-					public void run() {
-						try {
-
-							final FileOutputStream fileOutputStream = new FileOutputStream("weather.ser");
-							final ObjectOutputStream out = new ObjectOutputStream(fileOutputStream);
-							out.writeObject(myWeatherThread);
-							out.close();
-							fileOutputStream.close();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						for (final Sensors8 output : myDevices) {
-							output.ping("weather.ser");
-						}
-					}
-				},res.R.Integers.TWOFIVETHOU, res.R.Integers.TWOFIVETHOU);
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
-		};
-		final Thread myDataThread = new Thread(myRunTimer);
-		myWeatherThread.start();
-		myDataThread.start();
-
+		ArrayList<AbstractOutputDevice> myDevices = new ArrayList<AbstractOutputDevice>();
+		myDevices.add(this);
+		new ISS(myDevices);
 	}
 
 	public static void main(String[] args) {
@@ -156,6 +125,7 @@ public class Sensors8 extends AbstractOutputDevice implements ConsoleSensor {
 
 	@Override
 	public void ping(String theFileName) {
+		read(theFileName);
 
 		ArrayList<String> sensorData = (ArrayList<String>) this.getOutputData();
 
