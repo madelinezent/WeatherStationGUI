@@ -45,9 +45,10 @@ class GraphTest {
     void testInitializationWithData() {
         ArrayList<Double> data = new ArrayList<Double>();
         data.add(1.0);
-        Graph dataGraph = new Graph(data);
+        Graph dataGraph = new Graph(data, "Size");
         assertTrue(dataGraph.getWeatherData().size() == 1);
         assertTrue(dataGraph.getWeatherData().contains(1.0));
+        assertEquals("Size", dataGraph.getLabel());
     }
     
     /**
