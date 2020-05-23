@@ -176,9 +176,8 @@ public class Graph extends JPanel {
         }
         FontMetrics metrics = g2.getFontMetrics();
         int labelWidth = metrics.stringWidth(graphLabel);
-        g2.drawString(graphLabel, this.getWidth()/2 - this.getWidth() / 13, getHeight() - padding - labelPad + 
+        g2.drawString(graphLabel, this.getWidth()/2 - labelWidth/2, getHeight() - padding - labelPad + 
                 metrics.getHeight() + 3);
-        
         g2.drawLine(padding + labelPad, getHeight() - padding - labelPad, padding + labelPad, padding);
         g2.drawLine(padding + labelPad, getHeight() - padding - labelPad, getWidth() -
                 padding, getHeight() - padding - labelPad);
@@ -203,38 +202,6 @@ public class Graph extends JPanel {
             int ovalH = POINT_WIDTH;
             g2.fillOval(x, y, ovalW, ovalH);
         }
-    }
-    
-    /**
-     * Initializes practice values to test the GUI graph.
-     */
-    private static void initializeTestValues() {
-        ArrayList<Double> data = new ArrayList<>();
-        Random random = new Random();
-        int maxDataPoints = 20;
-        int maxScore = 8;
-        for (int i = 0; i < maxDataPoints; i++) {
-            data.add((double) random.nextDouble() * maxScore);
-        }
-        Graph mainPanel = new Graph(data, "Temp");
-        mainPanel.setPreferredSize(new Dimension(700, 600));
-        JFrame frame = new JFrame("Data Graph");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add(mainPanel);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    }
-    
-     /**
-     * Main method to create the GUI based on practice values.
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                initializeTestValues();
-            }
-        });
     }
 }
 
