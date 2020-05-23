@@ -1,12 +1,14 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.BeforeEach;
-
 import sensorData.*;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests if Console Sensor 2 generates expected sensor data. 
+ * @author Deline Zent
+ */
 class Sensors2Test {
 
     ConsoleSensor s2;
@@ -185,5 +187,4 @@ class Sensors2Test {
         }
         assertTrue(differentValues); 
     }
-    
 }
