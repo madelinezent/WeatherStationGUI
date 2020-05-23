@@ -1,25 +1,26 @@
 package sensorData;
-import sensorSuite7.SensorSuite;
+import sensors7.*;
 /**
  * Retrieves data from Group 7's implementation.
  *
  * @author Ali Iftakhar.
  */
 public class Sensors7 implements ConsoleSensor {
-    private static SensorSuite sensorSuite;
+    private AnemometerSensor meter;
+    private HumiditySensor humid;
+    private RainSensor rain;
+    private TemperatureSensor temp;
+    
 
-    public void Initialize() {
-        sensorSuite = new SensorSuite();
-        try {
-			startSensorSuite();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    public void Initialize()  {
+        meter = new AnemometerSensor();
+        humid = new HumiditySensor();
+        rain = new RainSensor();
+        temp = new TemperatureSensor();
     }
     
     public double rainFall() {
-    	return sensorSuite.getSensors().get(0).getData();
+    	return rain.getData();
     }
     
     public double rainRate() {
@@ -27,7 +28,7 @@ public class Sensors7 implements ConsoleSensor {
     }
     
     public double humOut() {
-    	return sensorSuite.getSensors().get(2).getData();
+    	return humid.getData();
     }
     
     public double humIn() {
@@ -35,7 +36,7 @@ public class Sensors7 implements ConsoleSensor {
     }
     
     public double tempOut() {
-    	return sensorSuite.getSensors().get(1).getData();
+    	return temp.getData();
     }
     
     public double tempIn() {
@@ -47,7 +48,7 @@ public class Sensors7 implements ConsoleSensor {
     }
     
     public double windSpeed() {
-    	return sensorSuite.getSensors().get(3).getData();
+    	return meter.getData();
     }
     
     public double pressure() {
@@ -58,7 +59,4 @@ public class Sensors7 implements ConsoleSensor {
     	return -1;
     }
     
-    private static void startSensorSuite() throws InterruptedException {
-        sensorSuite.run();
-    }
 }
