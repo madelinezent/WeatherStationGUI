@@ -50,7 +50,7 @@ public class Sensors8 implements ConsoleSensor {
 
 	@Override
 	public double rainFall() {
-		return (double) myWeatherData.getRainfall();
+		return (double) myData.getWeatherData().getRainfall();
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class Sensors8 implements ConsoleSensor {
 	@Override
 	public double humOut() {
 		
-		return (double) myWeatherData.getHumidity();
+		return (double) myData.getWeatherData().getHumidity();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class Sensors8 implements ConsoleSensor {
 
 	@Override
 	public double tempOut() {
-		return (double) myWeatherData.getAirTemperatures();
+		return (double) myData.getWeatherData().getAirTemperatures();
 	}
 
 	@Override
@@ -89,17 +89,17 @@ public class Sensors8 implements ConsoleSensor {
 		for(int i = 0; i < winDirectionD.size(); i++) {
 			winDirection.put(winDirectionS.get(i), winDirectionD.get(i));
 		}
-		return winDirection.get(myWeatherData.getWindDirection());
+		return winDirection.get(myData.getWeatherData().getWindDirection());
 	}
 
 	@Override
 	public double windSpeed() {
-		return (double) myWeatherData.getWindSpeed();
+		return (double) myData.getWeatherData().getWindSpeed();
 	}
 
 	@Override
 	public double pressure() {
-		return myWeatherData.getPressure();
+		return myData.getWeatherData().getPressure();
 	}
 
 	@Override
