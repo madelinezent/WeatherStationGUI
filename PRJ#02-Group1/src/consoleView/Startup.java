@@ -62,7 +62,7 @@ public class Startup {
 		frame.getContentPane().add(txtSelectTheCombination);
 		txtSelectTheCombination.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<String> comboBox = new JComboBox<>();
 		comboBox.setBounds(48, 398, 119, 28);
 		frame.getContentPane().add(comboBox);
 		comboBox.addItem("None");
@@ -72,7 +72,7 @@ public class Startup {
 		comboBox.addItem("ISS7");
 		comboBox.addItem("ISS8");
 		
-		JComboBox comboBox_1 = new JComboBox();
+		JComboBox<String> comboBox_1 = new JComboBox<>();
 		comboBox_1.setBounds(290, 398, 118, 28);
 		frame.getContentPane().add(comboBox_1);
 		comboBox_1.addItem("None");
@@ -88,7 +88,7 @@ public class Startup {
 		btnNewButton.setBounds(870, 552, 96, 28);
 		frame.getContentPane().add(btnNewButton);
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox<String> comboBox_2 = new JComboBox<String>();
 		comboBox_2.setBounds(539, 396, 119, 33);
 		frame.getContentPane().add(comboBox_2);
 		comboBox_2.addItem("None");
@@ -98,7 +98,7 @@ public class Startup {
 		comboBox_2.addItem("ISS7");
 		comboBox_2.addItem("ISS8");
 		
-		JComboBox comboBox_3 = new JComboBox();
+		JComboBox<String> comboBox_3 = new JComboBox<>();
 		comboBox_3.setBounds(758, 396, 119, 33);
 		frame.getContentPane().add(comboBox_3);
 		comboBox_3.addItem("None");
@@ -108,7 +108,7 @@ public class Startup {
 		comboBox_3.addItem("ISS7");
 		comboBox_3.addItem("ISS8");
 		
-		JComboBox comboBox_4 = new JComboBox();
+		JComboBox<String> comboBox_4 = new JComboBox<String>();
 		comboBox_4.setBounds(48, 492, 118, 28);
 		frame.getContentPane().add(comboBox_4);
 		comboBox_4.addItem("None");
@@ -118,7 +118,7 @@ public class Startup {
 		comboBox_4.addItem("ISS7");
 		comboBox_4.addItem("ISS8");
 		
-		JComboBox comboBox_5 = new JComboBox();
+		JComboBox<String> comboBox_5 = new JComboBox<>();
 		comboBox_5.setBounds(290, 492, 118, 28);
 		frame.getContentPane().add(comboBox_5);
 		comboBox_5.addItem("None");
@@ -128,7 +128,7 @@ public class Startup {
 		comboBox_5.addItem("ISS7");
 		comboBox_5.addItem("ISS8");
 		
-		JComboBox comboBox_6 = new JComboBox();
+		JComboBox<String> comboBox_6 = new JComboBox<>();
 		comboBox_6.setBounds(539, 490, 119, 33);
 		frame.getContentPane().add(comboBox_6);
 		comboBox_6.addItem("None");
@@ -138,7 +138,7 @@ public class Startup {
 		comboBox_6.addItem("ISS7");
 		comboBox_6.addItem("ISS8");
 		
-		JComboBox comboBox_7 = new JComboBox();
+		JComboBox<String> comboBox_7 = new JComboBox<>();
 		comboBox_7.setBounds(759, 490, 118, 33);
 		frame.getContentPane().add(comboBox_7);
 		comboBox_7.addItem("None");
@@ -155,7 +155,7 @@ public class Startup {
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<JComboBox> boxes = new ArrayList<>();
+				ArrayList<JComboBox<String>> boxes = new ArrayList<>();
 				boxes.add(comboBox);
 				boxes.add(comboBox_1);
 				boxes.add(comboBox_2);
@@ -172,7 +172,7 @@ public class Startup {
 						sensors.add(new Sensors4());
 					} else if(boxes.get(i).getSelectedItem().equals("ISS6")) {
 						sensors.add(new Sensors6());
-					} else if(boxes.get(i).getSelectedItem().equals("ISS4")) {
+					} else if(boxes.get(i).getSelectedItem().equals("ISS7")) {
 						sensors.add(new Sensors7());
 					} else if(boxes.get(i).getSelectedItem().equals("ISS8")) {
 						sensors.add(new Sensors8());
