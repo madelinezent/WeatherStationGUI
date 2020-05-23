@@ -1,23 +1,16 @@
 package sensorData;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import data.WeatherData;
 import model.AbstractOutputDevice;
 import model.ISS;
-import model.WeatherMonitoringApp;
 
 public class Sensors8 extends AbstractOutputDevice implements ConsoleSensor {
 
-	private WeatherData myWeatherThread;
 
 	double rainFall;
 
