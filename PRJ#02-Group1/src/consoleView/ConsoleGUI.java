@@ -107,7 +107,7 @@ public class ConsoleGUI implements ActionListener {
 		weatherPanel.add(myMoonIcon);
 		// Initialize compass and graph.
 		myCompass = new WindCompass();
-		myGraph = new Graph(myData.getTempOutHistory());
+		myGraph = new Graph(myData.getTempOutHistory(), "Temperature");
 		myGraphLabel = new JLabel("Temperature");
 		myGraphLabel.setFont(dataFontMini);
 		
