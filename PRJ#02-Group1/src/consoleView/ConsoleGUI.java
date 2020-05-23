@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import consoleDataCollectors.DataType;
-import consoleDataCollectors.SensorList;
 
 /**
  * Console display. Display average data from most 8 different weather stations.
@@ -50,8 +49,7 @@ public class ConsoleGUI implements ActionListener {
 
 	private boolean click = false;
 
-	public ConsoleGUI(DataType theData, SensorList theList) {
-		myData = theData;
+	public ConsoleGUI(DataType theData) {
 		// initialize frame.
 		myFrame = new JFrame("Vantage Pro2 Console Receiver");
 
