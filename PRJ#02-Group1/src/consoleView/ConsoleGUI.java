@@ -475,12 +475,15 @@ public class ConsoleGUI implements ActionListener {
 			
 			switch(myState) {
 			case CURRENT:
+				hilow.setText("Current");
 				myState = DisplayState.MAX;
 				break;
 			case MAX:
+				hilow.setText("High");
 				myState = DisplayState.MIN;
 				break;
 			case MIN:
+				hilow.setText("Low");
 				myState = DisplayState.CURRENT;
 				break;
 			
