@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import consoleDataCollectors.DataType;
-import consoleDataCollectors.SensorList;
 import sensorData.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -183,8 +182,7 @@ public class Startup {
 				System.out.println(sensors);
 				
 				DataType type = new DataType(sensors);
-				SensorList list = new SensorList(sensors);
-				ConsoleGUI gui = new ConsoleGUI(type, list);
+				ConsoleGUI gui = new ConsoleGUI(type);
 				
 				frame.setVisible(false);
 				frame.dispose();

@@ -8,7 +8,6 @@ import java.text.DecimalFormat;
 import javax.swing.*;
 
 import consoleDataCollectors.DataType;
-import consoleDataCollectors.SensorList;
 
 /**
  * Console display. Display average data from most 8 different weather stations.
@@ -52,7 +51,7 @@ public class ConsoleGUI implements ActionListener {
 	//Display values with decimal format of 1 decimal place.
 	private DecimalFormat df = new DecimalFormat("0.0");
 
-	public ConsoleGUI(DataType theData, SensorList theList) {
+	public ConsoleGUI(DataType theData) {
 		myData = theData;
 		// initialize frame.
 		myFrame = new JFrame("Vantage Pro2 Console Receiver");
