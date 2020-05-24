@@ -5,6 +5,8 @@ import javax.swing.JTextField;
 import consoleDataCollectors.DataType;
 import sensorData.*;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JComboBox;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -185,5 +187,9 @@ public class Startup {
 				
 			}
 		});
+	}
+	
+	public Dimension getFrameSize() {
+		return frame.getPreferredSize();
 	}
 }
