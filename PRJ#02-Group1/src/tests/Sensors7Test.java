@@ -26,7 +26,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve pressure value and assert it does NOT exist in this sensor suite.
+	 * Retrieve anomometer value and assert it does exist in this sensor suite.
 	 */
 	@Test
 	void testAnomometer() {
@@ -37,7 +37,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve wind chill value and assert it does NOT exist in this sensor suite.
+	 * Retrieve humidity outside the house.
 	 */
 	@Test
 	void testHumidityOut() {
@@ -48,7 +48,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve rainfall value and assert it DOES exist in this sensor suite.
+	 * Retrieve rainfall data.
 	 */
 	@Test
 	void testRainFall() {
@@ -59,7 +59,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve rain rate value and assert it DOES exist in this sensor suite.
+	 * Retrieve rain rate value and assert it DOES NOT exist in this sensor suite.
 	 */
 	@Test
 	void testRainRate() {
@@ -70,7 +70,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve external humidity value and assert it DOES exist in this sensor suite.
+	 * Retrieve internal humidity value and assert it DOESN'T exist in this sensor suite.
 	 */
 	@Test
 	void testHumidityIn() {
@@ -101,7 +101,7 @@ public class Sensors7Test {
 	}
 	
 	/**
-	 * Retrieve wind direction value and assert it DOES exist in this sensor suite.
+	 * Retrieve wind direction value and assert it DOESN'T exist in this sensor suite.
 	 */
 	@Test
 	void testWindDir() {
@@ -111,12 +111,18 @@ public class Sensors7Test {
 		
 	}
 	
+	/**
+	 * Retreieve pressure and assert that it DOESN'T exist.
+	 */
 	@Test
 	void testPressure() {
 		double testVal = s7.pressure();
 		assertTrue(testVal < 0);
 	}
 	
+	/**
+	 * Retrieve WindChill and assert it DOESN'T exist.
+	 */
 	@Test
 	void testWindChill() {
 		double testVal = s7.windchill();
