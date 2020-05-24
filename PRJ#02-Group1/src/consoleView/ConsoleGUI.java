@@ -15,7 +15,7 @@ import consoleDataCollectors.DataType;
  * @author Xiuxiang Wu
  * @author Nam Hoang
  * @author Maxfield England
- * @version 5-11-2020
+ * @version 5-23-2020
  */
 
 public class ConsoleGUI implements ActionListener {
@@ -366,12 +366,13 @@ public class ConsoleGUI implements ActionListener {
 					myGraph.setData(myData.getPressureHistory());
 					break;
 				case RAINFALL:
-					myGraph.setLabel("Rainfall");
+					myGraph.setLabel("RainFall");
 					myGraph.setData(myData.getRainFallHistory());
 					break;
 				case RAINRATE:
-					myGraphLabel = "Rain Rate" ;
+					myGraph.setLabel("RainRate");
 					myGraph.setData(myData.getRainRateHistory());
+					break;
 				case TEMPIN:
 					myGraph.setLabel("Internal Temperature");
 					myGraph.setData(myData.getTempInHistory());
@@ -401,7 +402,7 @@ public class ConsoleGUI implements ActionListener {
 			myHumidIn.setText(df.format(myData.getCurrentHumIn()));
 			myPressure.setText(df.format(myData.getCurrentPressure()));
 			myWindChill.setText(df.format(myData.getCurrentWindChill()));
-			
+
 			displayState.setText("Displaying CURRENT");
 			break;
 		case MAX:
@@ -413,7 +414,7 @@ public class ConsoleGUI implements ActionListener {
 			myHumidIn.setText(df.format(myData.getMaxHumIn()));
 			myPressure.setText(df.format(myData.getMaxPressure()));
 			myWindChill.setText(df.format(myData.getMaxWindChill()));
-			
+
 			displayState.setText("Displaying HIGH");
 			break;
 		case MIN:
@@ -498,15 +499,12 @@ public class ConsoleGUI implements ActionListener {
 			
 			switch(myState) {
 			case CURRENT:
-				hilow.setText("Current");
 				myState = DisplayState.MAX;
 				break;
 			case MAX:
-				hilow.setText("High");
 				myState = DisplayState.MIN;
 				break;
 			case MIN:
-				hilow.setText("Low");
 				myState = DisplayState.CURRENT;
 				break;
 			

@@ -79,6 +79,15 @@ class GraphTest {
     }
     
     /**
+     * Test if the setLabel() method can update the Graph label.
+     */
+    @Test
+    void testLabel() {
+        graph.setLabel("rainfall");
+        assertEquals("rainfall", graph.getLabel());
+    }
+    
+    /**
      * Test if graph only represents the last 15 historical data
      * points in a list.
      */
