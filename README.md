@@ -28,3 +28,5 @@ graph the last 15 inputted histroical data points for any data type.
 Tests:  
 All tests were written by the corresponding member to write functionalities.
 Tests are all written in JUnit Jupiter. To find the tests go to /src/tests.
+
+![Example Console](https://raw.githubusercontent.com/MaxfieldEngland/Group1Project2_Console/master/PRJ%2302-Group1/exampleImage.png?token=ALMLN45TYKJQ5IQC6NFF62K6ZHVHO)
