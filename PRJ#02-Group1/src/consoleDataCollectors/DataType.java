@@ -165,7 +165,6 @@ public class DataType {
 			if (data < 0) {continue;}
 			total += data;
 			sensorsUsed++;
-			System.out.println("Incrementing sensors");
 		}
 		if (sensorsUsed > 0) currentWindChill = total / sensorsUsed;
 		else currentWindChill = 0;

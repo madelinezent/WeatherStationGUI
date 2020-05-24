@@ -37,19 +37,6 @@ public class Sensors8 extends AbstractOutputDevice implements ConsoleSensor {
 		new ISS(myDevices);
 	}
 
-	public static void main(String[] args) {
-
-		Sensors8 testSensor = new Sensors8();
-
-		testSensor.Initialize();
-
-		System.out.println("Rain:\tRate:\tHum:\tTemp:\tWndDir:\tWindSp:");
-		for (int i = 0; i < 20; i++) {
-			System.out.println(testSensor.rainFall() + "\t" + testSensor.rainRate() + "\t" + testSensor.humOut() + "\t"
-					+ testSensor.tempOut() + "\t" + testSensor.windDirection() + "\t" + testSensor.windSpeed());
-		}
-	}
-
 	@Override
 	public double rainFall() {
 		return rainFall;

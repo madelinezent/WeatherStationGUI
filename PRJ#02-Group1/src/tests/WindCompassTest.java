@@ -39,9 +39,9 @@ public class WindCompassTest {
 	@Test
 	void testConstructor() {
 		
-		//Assert that created compass is (preferred) 400x400
-		assertEquals(400, wc.getPreferredSize().width);
-		assertEquals(400, wc.getPreferredSize().height);
+		//Assert that created compass is (preferred) 300x300
+		assertEquals(300, wc.getPreferredSize().width);
+		assertEquals(300, wc.getPreferredSize().height);
 		
 		//assert compass background features an icon
 		assertNotNull(wc.compassLabel.getIcon());

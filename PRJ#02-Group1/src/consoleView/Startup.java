@@ -1,16 +1,12 @@
 package consoleView;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import consoleDataCollectors.DataType;
 import sensorData.*;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -27,6 +23,7 @@ public class Startup {
 
 	private JFrame frame;
 	private JTextField txtSelectTheCombination;
+	@SuppressWarnings("unused")
 	private ImageIcon image1;
 	
 
@@ -177,11 +174,10 @@ public class Startup {
 						sensors.add(new Sensors8());
 					}
 				}
-				
-				System.out.println("Sensor Suite List:");
-				System.out.println(sensors);
+
 				
 				DataType type = new DataType(sensors);
+				@SuppressWarnings("unused")
 				ConsoleGUI gui = new ConsoleGUI(type);
 				
 				frame.setVisible(false);
