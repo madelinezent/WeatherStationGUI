@@ -41,10 +41,10 @@ public class ConsoleGUI implements ActionListener {
 
 	/** Multi-line area that displays plain text. */
 	private JLabel myTemp, myTempIn, myHumid, myHumidIn, myDate, myTime, myRainRate, myRainFall, myPressure,
-	myWindChill, myCloudIcon, myMoonIcon, myGraphLabel, displayState;
+	myWindChill, myCloudIcon, myMoonIcon, displayState;
 	/** Multi-line buttons. */
 	private JButton temperature, humidity, temperatureIn, humidityIn, rainRate, hilow, pressure, rainFall;
-
+	private String myGraphLabel;
 	private WindCompass myCompass;
 	private Graph myGraph;
 	private JPanel weatherPanel; 
@@ -106,10 +106,11 @@ public class ConsoleGUI implements ActionListener {
 		weatherPanel.add(myCloudIcon);
 		weatherPanel.add(myMoonIcon);
 		// Initialize compass and graph.
+		myGraphLabel = "Temperature";
 		myCompass = new WindCompass();
-		myGraph = new Graph(myData.getTempOutHistory(), "Temperature");
-		myGraphLabel = new JLabel("Temperature");
-		myGraphLabel.setFont(dataFontMini);
+		myGraph = new Graph(myData.getTempOutHistory(), myGraphLabel );
+//		myGraphLabel = new JLabel("Temperature");
+//		myGraphLabel.setFont(dataFontMini);
 		
 		displayState = new JLabel("Displaying CURRENT");
 		displayState.setFont(dataFontMini);
@@ -339,35 +340,50 @@ public class ConsoleGUI implements ActionListener {
 		//Update compass
 		myCompass.update(myData.getCurrentWindDirection(), myData.getCurrentWindSpeed());
 		
-		//Update graph
-		switch(currGraphing) {
-		case HUMIN:
-			myGraphLabel.setText("Internal Humidity");
-			myGraph.setData(myData.getHumInHistory());
-		case HUMOUT:
-			myGraphLabel.setText("Humidity");
-			myGraph.setData(myData.getHumOutHistory());
-		case PRESSURE:
-			myGraphLabel.setText("Pressure");
-			myGraph.setData(myData.getPressureHistory());
-		case RAINFALL:
-			myGraphLabel.setText("Rainfall");
-			myGraph.setData(myData.getRainFallHistory());
-		case RAINRATE:
-			myGraphLabel.setText("Rain Rate");
-			myGraph.setData(myData.getRainRateHistory());
-		case TEMPIN:
-			myGraphLabel.setText("Internal Temperature");
-			myGraph.setData(myData.getTempInHistory());
-		case TEMPOUT:
-			myGraphLabel.setText("Temperature");
-			myGraph.setData(myData.getTempOutHistory());
-		}
+		
 		
 		//Calculate a sensible weather state to display and update weather icon
 		determineWeather();
 		updateVals();
+		updateGraph();
 
+	}
+	/**
+	 * update graph
+	 */
+	private void updateGraph() {
+		//Update graph
+				switch(currGraphing) {
+				case HUMIN:
+					myGraph.setLabel("Internal Humidity");
+					myGraph.setData(myData.getHumInHistory());
+					break;
+				case HUMOUT:
+					myGraph.setLabel("Humidity");
+					myGraph.setData(myData.getHumOutHistory());
+					break;
+				case PRESSURE:
+					myGraph.setLabel("Pressure");
+					myGraph.setData(myData.getPressureHistory());
+					break;
+				case RAINFALL:
+					myGraph.setLabel("Rainfall");
+					myGraph.setData(myData.getRainFallHistory());
+					break;
+				case RAINRATE:
+					myGraphLabel = "Rain Rate" ;
+					myGraph.setData(myData.getRainRateHistory());
+				case TEMPIN:
+					myGraph.setLabel("Internal Temperature");
+					myGraph.setData(myData.getTempInHistory());
+					break;
+				case TEMPOUT:
+					myGraph.setLabel("Temperature") ;
+					myGraph.setData(myData.getTempOutHistory());
+					break;
+				}
+				//update();
+		
 	}
 	
 	/**
@@ -444,30 +460,38 @@ public class ConsoleGUI implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == temperature) {
 			currGraphing = GraphData.TEMPOUT;
+			updateGraph();
+			
 		}
 
 		if (e.getSource() == temperatureIn) {
 			currGraphing = GraphData.TEMPIN;
+			updateGraph();
 			}
 
 		if (e.getSource() == humidity) {
 			currGraphing = GraphData.HUMOUT;
+			updateGraph();
 		}
 
 		if (e.getSource() == humidityIn) {
 			currGraphing = GraphData.HUMIN;
+			updateGraph();
 		}
 
 		if (e.getSource() == rainRate) {
 			currGraphing = GraphData.RAINRATE;
+			updateGraph();
 		}
 
 		if (e.getSource() == pressure) {
 			currGraphing = GraphData.PRESSURE;
+			updateGraph();
 		}
 
 		if (e.getSource() == rainFall) {
 			currGraphing = GraphData.RAINFALL;
+			updateGraph();
 		}
 
 		//Cycle between current, high, and low display values.
