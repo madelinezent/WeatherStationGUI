@@ -25,7 +25,7 @@ public class Graph extends JPanel {
     private static final long serialVersionUID = 2263971214879981059L;
     private int labelPad = 30;
     private int padding = 20;
-    private static int POINT_WIDTH = 14;
+    private static int POINT_WIDTH = 9;
     private static final Stroke STROKE = new BasicStroke();
     private Color lineColor = new Color(224,224,224);
     private Color pointColor = new Color(20,43,219);
