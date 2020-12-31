@@ -3,6 +3,8 @@ Vantage Pro2 Weather Station GUI
 TCSS 360 - Software Development   
 Date: 05/24/20  
 
+![Example Console](https://github.com/MaxfieldEngland/Group1Project2_Console/blob/master/PRJ%2302-Group1/exampleImage.png?raw=true)
+
 Team Names (in alphabetical order of last name):
 1. Maxfield Odin England (Group Leader)
 2. Nam D. Hoang
@@ -28,5 +30,3 @@ graph the last 15 inputted histroical data points for any data type.
 Tests:  
 All tests were written by the corresponding member to write functionalities.
 Tests are all written in JUnit Jupiter. To find the tests go to /src/tests.
-
-![Example Console](https://github.com/MaxfieldEngland/Group1Project2_Console/blob/master/PRJ%2302-Group1/exampleImage.png?raw=true)
